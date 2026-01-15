@@ -58,7 +58,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { name: dict.home.collections.tahini, handle: 'tahini', image: '/logo.png' },
-              { name: dict.home.collections.hummus, handle: 'hummus', image: '/logo.png' },
+              { name: dict.home.collections.halawa, handle: 'halawa', image: '/logo.png' },
               { name: dict.home.collections.oliveOil, handle: 'olive-oil', image: '/logo.png' },
             ].map((collection) => (
               <Link
