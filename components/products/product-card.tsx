@@ -20,7 +20,9 @@ interface ProductCardProps {
 
 export function ProductCard({ product, locale, dict }: ProductCardProps) {
   const image = product.images.edges[0]?.node;
-  const price = product.priceRange.minVariantPrice;
+  const minPrice = product.priceRange.minVariantPrice;
+  const maxPrice = product.priceRange.maxVariantPrice;
+  const hasMultiplePrices = minPrice.amount !== maxPrice.amount;
   const defaultVariant = product.variants.edges[0]?.node;
   const { addToCart, isLoading } = useCart();
   const router = useRouter();
@@ -79,9 +81,22 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
         
         <div className="mt-auto space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold text-primary">
-              {formatPrice(price.amount, price.currencyCode)}
-            </span>
+            <div className="flex flex-col">
+              {hasMultiplePrices ? (
+                <>
+                  <span className="text-xl font-bold text-primary">
+                    {formatPrice(minPrice.amount, minPrice.currencyCode, locale)} - {formatPrice(maxPrice.amount, maxPrice.currencyCode, locale)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {dict.common.multipleVariants || 'Multiple options available'}
+                  </span>
+                </>
+              ) : (
+                <span className="text-xl font-bold text-primary">
+                  {formatPrice(minPrice.amount, minPrice.currencyCode, locale)}
+                </span>
+              )}
+            </div>
           </div>
           
           <div className="flex gap-2">

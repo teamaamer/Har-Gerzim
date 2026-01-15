@@ -174,7 +174,7 @@ export function AccountDashboard({ locale, dict }: AccountDashboardProps) {
                       </p>
                       <p className="text-sm">
                         <span className="font-medium">
-                          {formatPrice(order.totalPrice.amount, order.totalPrice.currencyCode)}
+                          {formatPrice(order.totalPrice.amount, order.totalPrice.currencyCode, locale)}
                         </span>
                         {' • '}
                         <span className="text-muted-foreground">

@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/components/cart/cart-provider';
 import { ShoppingCart, Check, Plus, Minus, Zap } from 'lucide-react';
+import { formatPrice } from '@/lib/shopify';
 import type { ShopifyProduct, ShopifyVariant } from '@/lib/shopify/types';
 import type { Locale } from '@/lib/i18n/config';
 
@@ -13,9 +15,10 @@ interface AddToCartButtonProps {
   defaultVariant: ShopifyVariant;
   locale: Locale;
   dict: any;
+  onVariantChange?: (variantId: string) => void;
 }
 
-export function AddToCartButton({ product, defaultVariant, locale, dict }: AddToCartButtonProps) {
+export function AddToCartButton({ product, defaultVariant, locale, dict, onVariantChange }: AddToCartButtonProps) {
   const { addToCart, isLoading } = useCart();
   const router = useRouter();
   const [added, setAdded] = useState(false);
@@ -38,6 +41,22 @@ export function AddToCartButton({ product, defaultVariant, locale, dict }: AddTo
 
   return (
     <div className="space-y-4">
+      {/* Price and Availability */}
+      <div className="flex items-center gap-3 flex-wrap">
+        <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gold-600 to-gold-500 bg-clip-text text-transparent">
+          {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode, locale)}
+        </span>
+        {product.availableForSale && selectedVariant.availableForSale ? (
+          <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+            {dict.common.inStock || 'In Stock'}
+          </Badge>
+        ) : (
+          <Badge variant="outline" className="border-red-300 text-red-600">
+            {dict.common.outOfStock}
+          </Badge>
+        )}
+      </div>
+
       {product.variants.edges.length > 1 && (
         <div>
           <label className="block text-sm font-medium mb-2">
@@ -50,7 +69,10 @@ export function AddToCartButton({ product, defaultVariant, locale, dict }: AddTo
               const variant = product.variants.edges.find(
                 (edge) => edge.node.id === e.target.value
               )?.node;
-              if (variant) setSelectedVariant(variant);
+              if (variant) {
+                setSelectedVariant(variant);
+                onVariantChange?.(variant.id);
+              }
             }}
           >
             {product.variants.edges.map(({ node: variant }) => (

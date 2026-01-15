@@ -113,7 +113,7 @@ export function CartDrawer({ open, onOpenChange, locale, dict }: CartDrawerProps
                         <p className="text-sm text-muted-foreground">{line.merchandise.title}</p>
                       )}
                       <p className="text-base font-bold text-navy-900 mt-2">
-                        {formatPrice(line.cost.totalAmount.amount)}
+                        {formatPrice(line.cost.totalAmount.amount, line.cost.totalAmount.currencyCode, locale)}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
                         <Button
@@ -160,7 +160,7 @@ export function CartDrawer({ open, onOpenChange, locale, dict }: CartDrawerProps
             >
               <div className="flex justify-between items-center py-3 px-4 bg-muted/30 rounded-lg">
                 <span className="text-lg font-semibold text-navy-900">{dict.common.subtotal}</span>
-                <span className="text-xl font-bold text-navy-900">{formatPrice(cart.cost.subtotalAmount.amount)}</span>
+                <span className="text-xl font-bold text-navy-900">{formatPrice(cart.cost.subtotalAmount.amount, cart.cost.subtotalAmount.currencyCode, locale)}</span>
               </div>
 
               <div className="flex justify-between text-base text-muted-foreground">

@@ -223,9 +223,19 @@ export function parseMetafields(metafields: any[]): ProductMetafield {
   return parsed;
 }
 
-export function formatPrice(amount: string, currencyCode: string = 'ILS'): string {
+export function formatPrice(amount: string, currencyCode: string = 'ILS', locale: string = 'en-US'): string {
   const price = parseFloat(amount);
-  return new Intl.NumberFormat('he-IL', {
+  
+  // Map locale to appropriate number format locale
+  const localeMap: Record<string, string> = {
+    'en': 'en-US',
+    'he': 'he-IL',
+    'ar': 'ar-IL',
+  };
+  
+  const formatLocale = localeMap[locale] || locale;
+  
+  return new Intl.NumberFormat(formatLocale, {
     style: 'currency',
     currency: currencyCode,
     minimumFractionDigits: 0,

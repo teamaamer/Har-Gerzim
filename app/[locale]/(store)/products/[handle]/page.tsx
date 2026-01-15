@@ -1,12 +1,10 @@
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { getProduct, formatPrice, parseMetafields } from '@/lib/shopify';
+import { getProduct, parseMetafields } from '@/lib/shopify';
 import type { Locale } from '@/lib/i18n/config';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { AddToCartButton } from '@/components/products/add-to-cart-button';
-import { ProductGallery } from '@/components/products/product-gallery';
+import { ProductClientWrapper } from '@/components/products/product-client-wrapper';
 import { ChevronRight, ShieldCheck, Truck, RotateCcw, Award, Package } from 'lucide-react';
 
 export default async function ProductPage({
@@ -43,47 +41,26 @@ export default async function ProductPage({
           <span className="text-navy-900 font-medium line-clamp-1">{product.title}</span>
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          {/* Product Gallery */}
-          <div className="lg:sticky lg:top-24 lg:self-start max-w-xl mx-auto lg:mx-0 w-full">
-            <ProductGallery images={images} productTitle={product.title} />
-          </div>
+        {/* Product Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-900 leading-tight">
+            {product.title}
+          </h1>
+          {product.description && (
+            <p className="text-gray-700 text-lg leading-relaxed mt-3">{product.description}</p>
+          )}
+        </div>
 
-          {/* Product Info */}
+        <ProductClientWrapper
+          product={product}
+          images={images}
+          variants={variants}
+          defaultVariant={defaultVariant}
+          locale={locale}
+          dict={dict}
+        >
+          {/* Product Specifications Cards */}
           <div className="space-y-4">
-            {/* Product Header */}
-            <div className="space-y-3">
-              <div className="flex items-start justify-between gap-4">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-900 leading-tight">
-                  {product.title}
-                </h1>
-              </div>
-
-              {/* Price and Availability */}
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gold-600 to-gold-500 bg-clip-text text-transparent">
-                  {formatPrice(defaultVariant.price.amount, defaultVariant.price.currencyCode)}
-                </span>
-                {product.availableForSale ? (
-                  <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
-                    {dict.common.inStock || 'In Stock'}
-                  </Badge>
-                ) : (
-                  <Badge variant="outline" className="border-red-300 text-red-600">
-                    {dict.common.outOfStock}
-                  </Badge>
-                )}
-              </div>
-            </div>
-
-            <hr className="border-gray-200" />
-
-            {/* Short Description */}
-            {product.description && (
-              <p className="text-gray-700 text-lg leading-relaxed">{product.description}</p>
-            )}
-
-            {/* Product Specifications Cards */}
             {(metafields.abv || metafields.size_ml) && (
               <div className="grid grid-cols-2 gap-3">
                 {metafields.size_ml && (
@@ -107,18 +84,8 @@ export default async function ProductPage({
               </div>
             )}
 
-            {/* Add to Cart Section */}
-            <div className="p-4 rounded-xl bg-white border-2 border-gray-200 shadow-lg">
-              <AddToCartButton
-                product={product}
-                defaultVariant={defaultVariant}
-                locale={locale}
-                dict={dict}
-              />
-            </div>
-
             {/* Trust Badges */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-6">
               <div className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-gray-200">
                 <Truck className="h-4 w-4 text-navy-600 flex-shrink-0" />
                 <span className="text-xs font-medium text-gray-700">{dict.shipping.deliveryTime?.split(':')[0] || 'Fast Delivery'}</span>
@@ -218,7 +185,7 @@ export default async function ProductPage({
             </AccordionItem>
             </Accordion>
           </div>
-        </div>
+        </ProductClientWrapper>
       </div>
     </div>
   );
