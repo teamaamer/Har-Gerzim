@@ -14,7 +14,6 @@ export default async function ShippingPage({ params }: { params: Promise<{ local
         <p>{dict.shipping.businessDays}</p>
         <p>{dict.shipping.pickup}</p>
         <p>{dict.shipping.cost}</p>
-        <p>{dict.shipping.idRequired}</p>
       </div>
     </article>
   );
