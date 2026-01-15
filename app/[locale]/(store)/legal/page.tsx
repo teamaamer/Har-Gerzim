@@ -23,10 +23,6 @@ export default async function LegalPage({ params }: LegalPageProps) {
           text: dict.legalPage.terms.acceptanceText
         },
         {
-          heading: dict.legalPage.terms.ageRestrictionHeading,
-          text: dict.legalPage.terms.ageRestrictionText
-        },
-        {
           heading: dict.legalPage.terms.productInfoHeading,
           text: dict.legalPage.terms.productInfoText
         },

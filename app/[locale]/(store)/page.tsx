@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Award, Heart, MapPin, Package } from 'lucide-react';
+import { ArrowRight, Package, MapPin, Award } from 'lucide-react';
 import { ProductCard } from '@/components/products/product-card';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -80,31 +80,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                   </h3>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Us Section */}
-      <section className="py-16 md:py-24">
-        <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            {dict.home.whyUs.title}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: Award, title: dict.home.whyUs.quality.title, desc: dict.home.whyUs.quality.description },
-              { icon: Heart, title: dict.home.whyUs.tradition.title, desc: dict.home.whyUs.tradition.description },
-              { icon: MapPin, title: dict.home.whyUs.local.title, desc: dict.home.whyUs.local.description },
-              { icon: Package, title: dict.home.whyUs.smallBatch.title, desc: dict.home.whyUs.smallBatch.description },
-            ].map((item, idx) => (
-              <div key={idx} className="text-center space-y-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary">
-                  <item.icon className="h-8 w-8" />
-                </div>
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
-              </div>
             ))}
           </div>
         </div>

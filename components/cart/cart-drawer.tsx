@@ -20,11 +20,11 @@ interface CartDrawerProps {
 
 export function CartDrawer({ open, onOpenChange, locale, dict }: CartDrawerProps) {
   const { cart, updateQuantity, removeFromCart, isLoading } = useCart();
-  const [age18Confirmed, setAge18Confirmed] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleCheckout = () => {
-    if (!age18Confirmed) {
-      alert(dict.cart.age18Required);
+    if (!termsAccepted) {
+      alert(dict.cart.termsRequired || 'Please accept the terms and conditions to proceed');
       return;
     }
     if (cart?.checkoutUrl) {
@@ -169,18 +169,27 @@ export function CartDrawer({ open, onOpenChange, locale, dict }: CartDrawerProps
               <label className="flex items-start gap-3 p-3 border rounded-lg cursor-pointer hover:bg-muted/30 transition-colors">
                 <input
                   type="checkbox"
-                  checked={age18Confirmed}
-                  onChange={(e) => setAge18Confirmed(e.target.checked)}
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
                   className="mt-0.5 h-5 w-5 rounded border-gray-300 text-gold-600 focus:ring-gold-500"
                 />
-                <span className="text-sm font-medium text-navy-900">{dict.cart.age18Confirmation}</span>
+                <span className="text-sm font-medium text-navy-900">
+                  {dict.cart.agreeToTerms || 'I agree to the'}{' '}
+                  <Link 
+                    href={`/${locale}/legal`} 
+                    className="text-gold-600 hover:text-gold-700 underline"
+                    onClick={() => onOpenChange(false)}
+                  >
+                    {dict.cart.termsAndConditions || 'terms and conditions'}
+                  </Link>
+                </span>
               </label>
 
               <Button
                 className="w-full bg-gold-600 hover:bg-gold-700 text-navy-900 font-bold shadow-lg"
                 size="lg"
                 onClick={handleCheckout}
-                disabled={!age18Confirmed || isLoading}
+                disabled={!termsAccepted || isLoading}
               >
                 {dict.common.checkout}
               </Button>
