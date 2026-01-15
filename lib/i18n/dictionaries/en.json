@@ -50,7 +50,7 @@
   "home": {
     "hero": {
       "title": "Loza Mount Gerizim",
-      "subtitle": "Premium Local Products from Har Bracha - Handcrafted Tahini, Hummus & Olive Oil",
+      "subtitle": "Premium Local Products from Har Bracha - Handcrafted Tahini, Halawa & Olive Oil",
       "description": "We proudly present traditional quality products crafted with care and love from Har Bracha - Gerizim. Each product reflects our local tradition and authenticity.",
       "cta": {
         "primary": "Shop Now",
@@ -67,8 +67,8 @@
       "title": "Our Collections",
 "tahini": "Tahini",
       "tahiniDesc": "Premium raw tahini",
-      "hummus": "Hummus",
-      "hummusDesc": "Fresh quality hummus",
+      "halawa": "Halawa",
+      "halawaDesc": "Premium sesame halawa",
       "oliveOil": "Olive Oil",
       "oliveOilDesc": "First cold-pressed olive oil",
       "coffee": "Coffee",

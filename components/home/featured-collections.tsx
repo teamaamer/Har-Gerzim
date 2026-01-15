@@ -15,7 +15,7 @@ interface FeaturedCollectionsProps {
 
 const collections = [
   { handle: 'tahini', image: '/categories/Tahini.png' },
-  { handle: 'hummus', image: '/categories/Halawa.png' },
+  { handle: 'halawa', image: '/categories/Halawa.png' },
   { handle: 'olive-oil', image: '/categories/Olive Oil.png' },
   { handle: 'coffee', image: '/categories/Coffee.jpeg' },
 ];

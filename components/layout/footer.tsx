@@ -67,7 +67,7 @@ export function Footer({ locale, dict }: FooterProps) {
             <h3 className="font-bold text-gold-400 mb-4 text-lg">{dict.footer.shop}</h3>
             <ul className="space-y-3 text-sm">
               <li><Link href={`/${locale}/collections/tahini`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.tahini}</Link></li>
-              <li><Link href={`/${locale}/collections/hummus`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.hummus}</Link></li>
+              <li><Link href={`/${locale}/collections/halawa`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.halawa}</Link></li>
               <li><Link href={`/${locale}/collections/olive-oil`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.oliveOil}</Link></li>
             </ul>
           </div>

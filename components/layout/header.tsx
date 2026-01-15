@@ -46,7 +46,7 @@ export function Header({ locale, dict }: HeaderProps) {
 
   const productCategories = [
     { href: `/${locale}/collections/tahini`, label: dict.home.collections.tahini },
-    { href: `/${locale}/collections/hummus`, label: dict.home.collections.hummus },
+    { href: `/${locale}/collections/halawa`, label: dict.home.collections.halawa },
     { href: `/${locale}/collections/olive-oil`, label: dict.home.collections.oliveOil },
     { href: `/${locale}/collections/coffee`, label: dict.home.collections.coffee },
   ];
