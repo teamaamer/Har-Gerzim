@@ -51,20 +51,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       if (response.ok) {
         const data = await response.json();
-<<<<<<< HEAD
         console.log('Cart provider received:', JSON.stringify({ id: data.cart?.id, totalQuantity: data.cart?.totalQuantity }));
-=======
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
         setCart(data.cart);
         if (data.cart?.id) {
           setCartId(data.cart.id);
           localStorage.setItem('shopify_cart_id', data.cart.id);
         }
-<<<<<<< HEAD
       } else {
         console.error('Failed to add to cart, response not ok:', response.status);
-=======
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
       }
     } catch (error) {
       console.error('Error adding to cart:', error);

@@ -14,11 +14,7 @@ if (!accessToken || accessToken === 'your_storefront_access_token') {
 
 const client = createStorefrontApiClient({
   storeDomain: storeDomain || 'demo-store.myshopify.com',
-<<<<<<< HEAD
   apiVersion: process.env.SHOPIFY_API_VERSION || '2025-01',
-=======
-  apiVersion: process.env.SHOPIFY_API_VERSION || '2024-01',
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
   publicAccessToken: accessToken || 'demo-token',
 });
 

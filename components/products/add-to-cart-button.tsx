@@ -197,11 +197,7 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
         >
           <Zap className="mr-2 h-5 w-5 md:h-6 md:w-6" />
           <span className="hidden sm:inline">{dict.common.buyNow || 'Buy Now'}</span>
-<<<<<<< HEAD
           <span className="sm:hidden">{(dict.common.buyNow || 'Buy').split(' ')[0]}</span>
-=======
-          <span className="sm:hidden">Buy</span>
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
         </Button>
         <Button
           size="lg"
@@ -214,21 +210,13 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
             <>
               <Check className="mr-2 h-5 w-5 md:h-6 md:w-6" />
               <span className="hidden sm:inline">{dict.product.addedToCart || 'Added!'}</span>
-<<<<<<< HEAD
               <span className="sm:hidden">{(dict.product.addedToCart || 'Added!').split(' ')[0]}</span>
-=======
-              <span className="sm:hidden">Added!</span>
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
             </>
           ) : (
             <>
               <ShoppingCart className="mr-2 h-5 w-5 md:h-6 md:w-6" />
               <span className="hidden sm:inline">{dict.common.addToCart}</span>
-<<<<<<< HEAD
               <span className="sm:hidden">{(dict.common.addToCart || 'Add').split(' ')[0]}</span>
-=======
-              <span className="sm:hidden">Add</span>
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
             </>
           )}
         </Button>

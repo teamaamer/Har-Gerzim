@@ -24,14 +24,10 @@ export function CartPageContent({ locale, dict }: CartPageContentProps) {
       return;
     }
     if (cart?.checkoutUrl) {
-<<<<<<< HEAD
       // Add locale parameter to checkout URL
       const url = new URL(cart.checkoutUrl);
       url.searchParams.set('locale', locale);
       window.location.href = url.toString();
-=======
-      window.location.href = cart.checkoutUrl;
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
     }
   };
 

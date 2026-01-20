@@ -170,7 +170,6 @@ export async function addToCart(
   quantity: number = 1
 ): Promise<ShopifyCart | null> {
   try {
-<<<<<<< HEAD
     const variables = {
       cartId,
       lines: [
@@ -184,18 +183,6 @@ export async function addToCart(
     
     const { data, errors } = await client.request(ADD_TO_CART_MUTATION, {
       variables,
-=======
-    const { data, errors } = await client.request(ADD_TO_CART_MUTATION, {
-      variables: {
-        cartId,
-        lines: [
-          {
-            merchandiseId,
-            quantity,
-          },
-        ],
-      },
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
     });
 
     if (errors || data?.cartLinesAdd?.userErrors?.length > 0) {
@@ -203,7 +190,6 @@ export async function addToCart(
       return null;
     }
 
-<<<<<<< HEAD
     const cart = data?.cartLinesAdd?.cart || null;
     console.log('Shopify addToCart response:', JSON.stringify({ 
       totalQuantity: cart?.totalQuantity, 
@@ -211,9 +197,6 @@ export async function addToCart(
       lines: cart?.lines?.edges?.map((e: any) => ({ id: e.node.id, quantity: e.node.quantity }))
     }));
     return cart;
-=======
-    return data?.cartLinesAdd?.cart || null;
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
   } catch (error) {
     console.error('Error adding to cart:', error);
     return null;

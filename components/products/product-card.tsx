@@ -116,11 +116,7 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
             >
               <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
               <span className="hidden sm:inline">{dict.common.addToCart}</span>
-<<<<<<< HEAD
               <span className="sm:hidden">{(dict.common.addToCart || 'Add').split(' ')[0]}</span>
-=======
-              <span className="sm:hidden">Add</span>
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
             </Button>
             <Button
               onClick={handleBuyNow}
@@ -130,11 +126,7 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
             >
               <Zap className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
               <span className="hidden sm:inline">{dict.common.buyNow}</span>
-<<<<<<< HEAD
               <span className="sm:hidden">{(dict.common.buyNow || 'Buy').split(' ')[0]}</span>
-=======
-              <span className="sm:hidden">Buy</span>
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
             </Button>
           </div>
         </div>

@@ -15,10 +15,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-<<<<<<< HEAD
     console.log('Cart after add:', JSON.stringify({ id: cart?.id, totalQuantity: cart?.totalQuantity, lineCount: cart?.lines?.edges?.length }));
-=======
->>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
     return NextResponse.json({ cart });
   } catch (error) {
     console.error('Error adding to cart:', error);
