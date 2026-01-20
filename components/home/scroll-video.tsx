@@ -182,12 +182,16 @@ export function ScrollVideo({ locale, dict }: ScrollVideoProps) {
           }}
           className="px-4"
         >
+<<<<<<< HEAD
           <h2 
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gold-400 tracking-tight drop-shadow-2xl"
             style={{
               textShadow: '0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.3), 0 0 60px rgba(251, 191, 36, 0.2)'
             }}
           >
+=======
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black tracking-tight drop-shadow-2xl">
+>>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
             {dict.home.scrollVideo.ourStory}
           </h2>
         </motion.div>
@@ -210,33 +214,57 @@ export function ScrollVideo({ locale, dict }: ScrollVideoProps) {
             {/* Years Heritage */}
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+<<<<<<< HEAD
               <div className="relative bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
                 <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-400 drop-shadow-lg mb-2">
                   {yearsCount}+
                 </div>
                 <div className="text-base sm:text-lg text-black font-medium drop-shadow-md">{dict.home.scrollVideo.yearsHeritage}</div>
+=======
+              <div className="relative bg-white/95 backdrop-blur-sm border-2 border-gold-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
+                <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-600 mb-2">
+                  {yearsCount}+
+                </div>
+                <div className="text-base sm:text-lg text-navy-700 font-medium">{dict.home.scrollVideo.yearsHeritage}</div>
+>>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
               </div>
             </div>
 
             {/* Happy Customers */}
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+<<<<<<< HEAD
               <div className="relative bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
                 <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-400 drop-shadow-lg mb-2">
                   {customersCount}K+
                 </div>
                 <div className="text-base sm:text-lg text-black font-medium drop-shadow-md">{dict.home.scrollVideo.happyCustomers}</div>
+=======
+              <div className="relative bg-white/95 backdrop-blur-sm border-2 border-gold-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
+                <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-600 mb-2">
+                  {customersCount}K+
+                </div>
+                <div className="text-base sm:text-lg text-navy-700 font-medium">{dict.home.scrollVideo.happyCustomers}</div>
+>>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
               </div>
             </div>
 
             {/* Premium Products */}
             <div className="relative group sm:col-span-2 md:col-span-1">
               <div className="absolute inset-0 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+<<<<<<< HEAD
               <div className="relative bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
                 <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-400 drop-shadow-lg mb-2">
                   {productsCount}
                 </div>
                 <div className="text-base sm:text-lg text-black font-medium drop-shadow-md">{dict.home.scrollVideo.premiumProducts}</div>
+=======
+              <div className="relative bg-white/95 backdrop-blur-sm border-2 border-gold-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 text-center">
+                <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-gold-600 mb-2">
+                  {productsCount}
+                </div>
+                <div className="text-base sm:text-lg text-navy-700 font-medium">{dict.home.scrollVideo.premiumProducts}</div>
+>>>>>>> 067bdc9f387a3afea5b22a5a803dba1176f21dc6
               </div>
             </div>
           </div>
