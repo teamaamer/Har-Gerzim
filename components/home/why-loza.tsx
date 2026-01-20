@@ -20,10 +20,10 @@ const icons = {
 
 export function WhyLoza({ locale, dict }: WhyLozaProps) {
   const pillars = [
-    { key: 'quality', icon: icons.quality, gradient: 'from-gold-400 to-gold-600' },
-    { key: 'tradition', icon: icons.tradition, gradient: 'from-red-400 to-red-600' },
-    { key: 'local', icon: icons.local, gradient: 'from-green-400 to-green-600' },
-    { key: 'gift', icon: icons.gift, gradient: 'from-purple-400 to-purple-600' },
+    { key: 'quality', icon: icons.quality, gradient: 'from-gold-400 to-gold-600', tilt: 'group-hover:rotate-2' },
+    { key: 'tradition', icon: icons.tradition, gradient: 'from-red-400 to-red-600', tilt: 'group-hover:-rotate-1' },
+    { key: 'local', icon: icons.local, gradient: 'from-green-400 to-green-600', tilt: 'group-hover:rotate-1' },
+    { key: 'gift', icon: icons.gift, gradient: 'from-purple-400 to-purple-600', tilt: 'group-hover:-rotate-2' },
   ];
 
   return (
@@ -73,17 +73,17 @@ export function WhyLoza({ locale, dict }: WhyLozaProps) {
                   className="group relative"
                 >
                   {/* Card */}
-                  <div className="relative h-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-gold-500/10 hover:-translate-y-2">
+                  <div className={`relative h-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-gold-500/10 hover:-translate-y-2 ${pillar.tilt} text-center`}>
                     {/* Gradient overlay on hover */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${pillar.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
                     
                     {/* Icon */}
-                    <div className="relative mb-6">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${pillar.gradient} shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                    <div className="relative mb-6 flex justify-center">
+                      {/* Icon glow effect - behind */}
+                      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br ${pillar.gradient} rounded-xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10`} />
+                      <div className={`relative inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${pillar.gradient} shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 z-10`}>
                         <Icon className="h-8 w-8 text-white" />
                       </div>
-                      {/* Icon glow effect */}
-                      <div className={`absolute inset-0 w-16 h-16 bg-gradient-to-br ${pillar.gradient} rounded-xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300`} />
                     </div>
                     
                     {/* Content */}

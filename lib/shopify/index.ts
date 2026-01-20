@@ -63,10 +63,19 @@ export async function getAllCollections(first: number = 10, locale?: string): Pr
   }
 }
 
-export async function getProduct(handle: string): Promise<ShopifyProduct | null> {
+export async function getProduct(handle: string, locale?: string): Promise<ShopifyProduct | null> {
   try {
+    // Map locale to Shopify language codes
+    const languageMap: Record<string, string> = {
+      'en': 'EN',
+      'he': 'HE',
+      'ar': 'AR',
+    };
+    
+    const language = locale ? languageMap[locale] || 'EN' : 'EN';
+    
     const { data, errors } = await client.request(GET_PRODUCT_QUERY, {
-      variables: { handle },
+      variables: { handle, language },
     });
 
     if (errors) {
@@ -81,10 +90,19 @@ export async function getProduct(handle: string): Promise<ShopifyProduct | null>
   }
 }
 
-export async function getProducts(query?: string, first: number = 20): Promise<ShopifyProduct[]> {
+export async function getProducts(query?: string, first: number = 20, locale?: string): Promise<ShopifyProduct[]> {
   try {
+    // Map locale to Shopify language codes
+    const languageMap: Record<string, string> = {
+      'en': 'EN',
+      'he': 'HE',
+      'ar': 'AR',
+    };
+    
+    const language = locale ? languageMap[locale] || 'EN' : 'EN';
+    
     const { data, errors } = await client.request(GET_PRODUCTS_QUERY, {
-      variables: { first, query },
+      variables: { first, query, language },
     });
 
     if (errors) {
@@ -99,10 +117,19 @@ export async function getProducts(query?: string, first: number = 20): Promise<S
   }
 }
 
-export async function searchProducts(query: string, first: number = 20): Promise<ShopifyProduct[]> {
+export async function searchProducts(query: string, first: number = 20, locale?: string): Promise<ShopifyProduct[]> {
   try {
+    // Map locale to Shopify language codes
+    const languageMap: Record<string, string> = {
+      'en': 'EN',
+      'he': 'HE',
+      'ar': 'AR',
+    };
+    
+    const language = locale ? languageMap[locale] || 'EN' : 'EN';
+    
     const { data, errors } = await client.request(SEARCH_PRODUCTS_QUERY, {
-      variables: { query, first },
+      variables: { query, first, language },
     });
 
     if (errors) {

@@ -58,12 +58,19 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
               src={image.url}
               alt={image.altText || product.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="object-contain group-hover:scale-105 transition-transform duration-300"
             />
           )}
           {!product.availableForSale && (
-            <Badge className="absolute top-3 left-3 bg-muted text-muted-foreground">
-              {dict.common.outOfStock}
+            <Badge className={`absolute top-3 ${locale === 'ar' || locale === 'he' ? 'right-3' : 'left-3'} bg-red-500/20 backdrop-blur-sm border border-red-500/30 text-red-700 hover:bg-red-500/30 overflow-hidden`}>
+              <span className="absolute inset-0 rounded-full bg-red-500/30 blur-md animate-spin" style={{ animationDuration: '3s' }} />
+              <span className="relative">{dict.common.outOfStock}</span>
+            </Badge>
+          )}
+          {product.availableForSale && defaultVariant && defaultVariant.quantityAvailable && Number(defaultVariant.quantityAvailable) > 0 && Number(defaultVariant.quantityAvailable) <= 5 && (
+            <Badge className={`absolute top-3 ${locale === 'ar' || locale === 'he' ? 'right-3' : 'left-3'} bg-yellow-400/30 backdrop-blur-sm border border-yellow-400/40 text-yellow-800 hover:bg-yellow-400/40 overflow-hidden`}>
+              <span className="absolute inset-0 rounded-full bg-yellow-400/40 blur-md animate-spin" style={{ animationDuration: '3s' }} />
+              <span className="relative">{dict.product.almostSoldOut || 'Almost Sold Out'}</span>
             </Badge>
           )}
         </div>

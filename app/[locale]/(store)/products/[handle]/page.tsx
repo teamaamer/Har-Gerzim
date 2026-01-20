@@ -14,7 +14,7 @@ export default async function ProductPage({
 }) {
   const { locale, handle } = await params;
   const dict = await getDictionary(locale);
-  const product = await getProduct(handle);
+  const product = await getProduct(handle, locale);
 
   if (!product) {
     notFound();
@@ -26,30 +26,21 @@ export default async function ProductPage({
   const metafields = parseMetafields(product.metafields);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <div className="container px-4 md:px-6 lg:px-8 py-4 md:py-6">
+    <div className="min-h-screen bg-white">
+      <div className="container px-4 md:px-6 lg:px-8 py-6 md:py-8">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-          <Link href={`/${locale}`} className="hover:text-navy-900 transition-colors">
+        <nav className="flex flex-nowrap items-center gap-1.5 md:gap-2 text-xs md:text-sm text-gray-500 mb-4 md:mb-6 overflow-hidden">
+          <Link href={`/${locale}`} className="hover:text-navy-900 transition-colors whitespace-nowrap flex-shrink-0 inline-flex items-center">
             {dict.common.shopNow || 'Home'}
           </Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link href={`/${locale}/collections/all`} className="hover:text-navy-900 transition-colors">
+          <ChevronRight className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+          <Link href={`/${locale}/collections/all`} className="hover:text-navy-900 transition-colors whitespace-nowrap flex-shrink-0 inline-flex items-center">
             {dict.home.collections.title || 'Products'}
           </Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-navy-900 font-medium line-clamp-1">{product.title}</span>
+          <ChevronRight className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+          <span className="text-navy-900 font-medium truncate min-w-0 inline-flex items-center">{product.title}</span>
         </nav>
 
-        {/* Product Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-900 leading-tight">
-            {product.title}
-          </h1>
-          {product.description && (
-            <p className="text-gray-700 text-lg leading-relaxed mt-3">{product.description}</p>
-          )}
-        </div>
 
         <ProductClientWrapper
           product={product}
@@ -60,52 +51,47 @@ export default async function ProductPage({
           dict={dict}
         >
           {/* Product Specifications Cards */}
-          <div className="space-y-4">
+          <div className="space-y-6 mt-6">
             {(metafields.abv || metafields.size_ml) && (
               <div className="grid grid-cols-2 gap-3">
                 {metafields.size_ml && (
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-navy-50 border border-navy-100">
-                    <Package className="h-5 w-5 text-navy-600 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-navy-600 font-medium">{dict.product.size}</p>
-                      <p className="text-lg font-bold text-navy-900">{metafields.size_ml}ml</p>
-                    </div>
+                  <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-navy-50 to-navy-100/50 border border-navy-200 hover:shadow-md transition-all">
+                    <Package className="h-6 w-6 text-navy-600 mb-2" />
+                    <p className="text-xs text-navy-600 font-medium uppercase tracking-wide">{dict.product.size}</p>
+                    <p className="text-2xl font-bold text-navy-900 mt-1">{metafields.size_ml}<span className="text-sm">ml</span></p>
                   </div>
                 )}
                 {metafields.abv && (
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-gold-50 border border-gold-100">
-                    <Award className="h-5 w-5 text-gold-600 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-gold-600 font-medium">{dict.product.abv}</p>
-                      <p className="text-lg font-bold text-gold-900">{metafields.abv}%</p>
-                    </div>
+                  <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-gold-50 to-gold-100/50 border border-gold-200 hover:shadow-md transition-all">
+                    <Award className="h-6 w-6 text-gold-600 mb-2" />
+                    <p className="text-xs text-gold-600 font-medium uppercase tracking-wide">{dict.product.abv}</p>
+                    <p className="text-2xl font-bold text-gold-900 mt-1">{metafields.abv}<span className="text-sm">%</span></p>
                   </div>
                 )}
               </div>
             )}
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-6">
-              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-gray-200">
-                <Truck className="h-4 w-4 text-navy-600 flex-shrink-0" />
-                <span className="text-xs font-medium text-gray-700">{dict.shipping.deliveryTime?.split(':')[0] || 'Fast Delivery'}</span>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/30 border border-blue-200 hover:shadow-md transition-all">
+                <Truck className="h-5 w-5 text-blue-600" />
+                <span className="text-xs font-semibold text-blue-900 text-center leading-tight">{dict.shipping.deliveryTime?.split(':')[0] || 'Fast Delivery'}</span>
               </div>
-              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-gray-200">
-                <ShieldCheck className="h-4 w-4 text-green-600 flex-shrink-0" />
-                <span className="text-xs font-medium text-gray-700">{dict.home.trust.secureCheckout || 'Secure Checkout'}</span>
+              <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-gradient-to-br from-green-50 to-green-100/30 border border-green-200 hover:shadow-md transition-all">
+                <ShieldCheck className="h-5 w-5 text-green-600" />
+                <span className="text-xs font-semibold text-green-900 text-center leading-tight">{dict.home.trust.secureCheckout || 'Secure'}</span>
               </div>
-              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-gray-200 col-span-2 md:col-span-1">
-                <RotateCcw className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                <span className="text-xs font-medium text-gray-700">{dict.returns.title?.split('&')[0] || 'Easy Returns'}</span>
+              <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100/30 border border-purple-200 hover:shadow-md transition-all">
+                <RotateCcw className="h-5 w-5 text-purple-600" />
+                <span className="text-xs font-semibold text-purple-900 text-center leading-tight">{dict.returns.title?.split('&')[0] || 'Returns'}</span>
               </div>
             </div>
 
-            <hr className="border-gray-200" />
-
             {/* Accordion Sections */}
-            <Accordion type="multiple" className="w-full">
+            <div className="mt-8">
+            <Accordion type="multiple" className="w-full space-y-2">
             {product.descriptionHtml && (
-              <AccordionItem value="description">
+              <AccordionItem value="description" className="border border-gray-200 rounded-xl px-4 bg-white hover:shadow-sm transition-all">
                 <AccordionTrigger>{dict.product.description}</AccordionTrigger>
                 <AccordionContent>
                   <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
@@ -114,7 +100,7 @@ export default async function ProductPage({
             )}
 
             {metafields.ingredients && (
-              <AccordionItem value="ingredients">
+              <AccordionItem value="ingredients" className="border border-gray-200 rounded-xl px-4 bg-white hover:shadow-sm transition-all">
                 <AccordionTrigger>{dict.product.ingredients}</AccordionTrigger>
                 <AccordionContent>
                   <p className="whitespace-pre-wrap">{metafields.ingredients}</p>
@@ -123,7 +109,7 @@ export default async function ProductPage({
             )}
 
             {(metafields.kosher || metafields.allergens || metafields.storage || metafields.shelf_life) && (
-              <AccordionItem value="specifications">
+              <AccordionItem value="specifications" className="border border-gray-200 rounded-xl px-4 bg-white hover:shadow-sm transition-all">
                 <AccordionTrigger>{dict.product.specifications}</AccordionTrigger>
                 <AccordionContent>
                   <dl className="space-y-2">
@@ -168,7 +154,7 @@ export default async function ProductPage({
               </AccordionItem>
             )}
 
-            <AccordionItem value="shipping">
+            <AccordionItem value="shipping" className="border border-gray-200 rounded-xl px-4 bg-white hover:shadow-sm transition-all">
               <AccordionTrigger>{dict.product.shipping}</AccordionTrigger>
               <AccordionContent>
                 <p>{dict.shipping.deliveryTime}</p>
@@ -176,7 +162,7 @@ export default async function ProductPage({
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="returns">
+            <AccordionItem value="returns" className="border border-gray-200 rounded-xl px-4 bg-white hover:shadow-sm transition-all">
               <AccordionTrigger>{dict.product.returns}</AccordionTrigger>
               <AccordionContent>
                 <p>{dict.returns.consumerLaw}</p>
@@ -184,6 +170,7 @@ export default async function ProductPage({
               </AccordionContent>
             </AccordionItem>
             </Accordion>
+            </div>
           </div>
         </ProductClientWrapper>
       </div>

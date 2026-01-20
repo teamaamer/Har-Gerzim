@@ -52,6 +52,7 @@ export const PRODUCT_FRAGMENT = `
           id
           title
           availableForSale
+          quantityAvailable
           price {
             amount
             currencyCode
@@ -188,7 +189,7 @@ export const GET_COLLECTION_QUERY = `
 
 export const GET_PRODUCT_QUERY = `
   ${PRODUCT_FRAGMENT}
-  query getProduct($handle: String!) {
+  query getProduct($handle: String!, $language: LanguageCode) @inContext(language: $language) {
     product(handle: $handle) {
       ...ProductFragment
     }
@@ -197,7 +198,7 @@ export const GET_PRODUCT_QUERY = `
 
 export const GET_PRODUCTS_QUERY = `
   ${PRODUCT_FRAGMENT}
-  query getProducts($first: Int = 20, $query: String) {
+  query getProducts($first: Int = 20, $query: String, $language: LanguageCode) @inContext(language: $language) {
     products(first: $first, query: $query) {
       edges {
         node {
@@ -210,7 +211,7 @@ export const GET_PRODUCTS_QUERY = `
 
 export const SEARCH_PRODUCTS_QUERY = `
   ${PRODUCT_FRAGMENT}
-  query searchProducts($query: String!, $first: Int = 20) {
+  query searchProducts($query: String!, $first: Int = 20, $language: LanguageCode) @inContext(language: $language) {
     products(first: $first, query: $query) {
       edges {
         node {

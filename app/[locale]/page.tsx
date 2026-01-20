@@ -14,7 +14,7 @@ import { ContactCta } from '@/components/home/contact-cta';
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
-  const products = await getProducts(undefined, 8);
+  const products = await getProducts(undefined, 8, locale);
   const collections = await getAllCollections(20, locale);
 
   return (

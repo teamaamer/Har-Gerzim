@@ -26,7 +26,9 @@ export function StorySection({ locale, dict }: StorySectionProps) {
       description: dict.home.story.features.quality.description,
       color: 'text-amber-600',
       bgColor: 'bg-gradient-to-br from-amber-50 to-yellow-100',
-      iconBg: 'bg-amber-500'
+      iconBg: 'bg-amber-500',
+      borderColor: 'border-amber-400/60 hover:border-amber-500',
+      glowColor: 'shadow-amber-400/50 hover:shadow-amber-500/70'
     },
     { 
       icon: Heart, 
@@ -34,7 +36,9 @@ export function StorySection({ locale, dict }: StorySectionProps) {
       description: dict.home.story.features.tradition.description,
       color: 'text-rose-600',
       bgColor: 'bg-gradient-to-br from-rose-50 to-pink-100',
-      iconBg: 'bg-rose-500'
+      iconBg: 'bg-rose-500',
+      borderColor: 'border-rose-400/60 hover:border-rose-500',
+      glowColor: 'shadow-rose-400/50 hover:shadow-rose-500/70'
     },
     { 
       icon: Leaf, 
@@ -42,7 +46,9 @@ export function StorySection({ locale, dict }: StorySectionProps) {
       description: dict.home.story.features.local.description,
       color: 'text-emerald-600',
       bgColor: 'bg-gradient-to-br from-emerald-50 to-green-100',
-      iconBg: 'bg-emerald-500'
+      iconBg: 'bg-emerald-500',
+      borderColor: 'border-emerald-400/60 hover:border-emerald-500',
+      glowColor: 'shadow-emerald-400/50 hover:shadow-emerald-500/70'
     },
   ];
   
@@ -114,7 +120,7 @@ export function StorySection({ locale, dict }: StorySectionProps) {
             />
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 items-center">
             {/* Feature Cards Side */}
             <motion.div
               initial={{ opacity: 0, x: locale === 'he' ? 20 : -20 }}
@@ -142,7 +148,7 @@ export function StorySection({ locale, dict }: StorySectionProps) {
                       scale: 1.03,
                       transition: { duration: 0.3 }
                     }}
-                    className={`flex items-start gap-4 p-5 rounded-xl ${card.bgColor} border-2 border-white/50 shadow-md hover:shadow-xl transition-shadow duration-300 group cursor-pointer`}
+                    className={`flex items-start gap-4 p-5 rounded-xl ${card.bgColor} border-2 ${card.borderColor} ${card.glowColor} hover:shadow-2xl transition-all duration-300 group cursor-pointer`}
                   >
                     <div 
                       className={`flex-shrink-0 w-12 h-12 rounded-lg ${card.iconBg} shadow-md flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}
@@ -168,13 +174,13 @@ export function StorySection({ locale, dict }: StorySectionProps) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative"
+              className="relative w-full"
             >
               {/* Main Image */}
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl group">
+              <div className="relative aspect-[4/3] w-full min-h-[300px] rounded-3xl overflow-hidden shadow-2xl group">
                 <div className="absolute inset-0 bg-gradient-to-br from-navy-900/70 via-navy-800/50 to-transparent z-10 group-hover:from-navy-900/60 transition-all duration-500" />
                 <Image
-                  src="/HarGerzim.png"
+                  src="/about-us.png"
                   alt={dict.home.story.imageCaption || 'Har Bracha - Gerizim'}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"

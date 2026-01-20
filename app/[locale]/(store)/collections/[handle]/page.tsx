@@ -14,7 +14,7 @@ export default async function CollectionPage({
   
   // Handle "all" as a special case to fetch all products
   if (handle === 'all') {
-    const allProducts = await getProducts(undefined, 100); // Fetch up to 100 products
+    const allProducts = await getProducts(undefined, 100, locale); // Fetch up to 100 products
     
     const allProductsTitle = locale === 'he' 
       ? 'כל המוצרים' 

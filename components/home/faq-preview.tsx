@@ -11,7 +11,7 @@ interface FaqPreviewProps {
 }
 
 export function FaqPreview({ locale, dict }: FaqPreviewProps) {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
   
   const faqs = [
     { q: dict.faq.q1, a: dict.faq.a1 },
@@ -50,19 +50,19 @@ export function FaqPreview({ locale, dict }: FaqPreviewProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="h-48 cursor-pointer perspective-1000"
-              onClick={() => setSelectedFaq(selectedFaq === index ? null : index)}
+              className="cursor-pointer perspective-1000 min-h-[140px]"
+              onClick={() => setFlippedIndex(flippedIndex === index ? null : index)}
             >
               <div
                 className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
-                  selectedFaq === index ? 'rotate-y-180' : ''
+                  flippedIndex === index ? 'rotate-y-180' : ''
                 }`}
               >
                 {/* Front of card - Question */}
                 <div className="absolute inset-0 backface-hidden">
-                  <div className="w-full h-full p-5 rounded-lg border-2 border-gray-200 bg-white hover:border-gold-300 hover:shadow-md transition-all duration-300 flex flex-col">
-                    <div className="flex items-start gap-3 mb-auto">
-                      <div className="w-10 h-10 rounded-full bg-navy-900 group-hover:bg-gold-500 flex items-center justify-center flex-shrink-0 transition-colors">
+                  <div className="w-full p-5 rounded-lg border-2 border-gray-200 bg-white hover:border-gold-300 hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full bg-navy-900 flex items-center justify-center flex-shrink-0">
                         <HelpCircle className="h-5 w-5 text-white" />
                       </div>
                       <h3 className="font-bold text-base text-navy-900 leading-tight">
@@ -75,8 +75,8 @@ export function FaqPreview({ locale, dict }: FaqPreviewProps) {
 
                 {/* Back of card - Answer */}
                 <div className="absolute inset-0 backface-hidden rotate-y-180">
-                  <div className="w-full h-full p-5 rounded-lg border-2 border-gold-500 bg-gold-50/50 shadow-lg flex flex-col justify-between">
-                    <p className="text-sm text-gray-700 leading-relaxed overflow-y-auto text-justify">
+                  <div className="w-full p-5 rounded-lg border-2 border-gold-500 bg-gold-50/50 shadow-lg">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                       {faq.a}
                     </p>
                     <p className="text-xs text-gray-500 text-center mt-3">{dict.home.faqPreview.clickToSeeQuestion}</p>
