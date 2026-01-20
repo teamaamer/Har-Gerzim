@@ -1,5 +1,5 @@
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { getProducts } from '@/lib/shopify';
+import { getProducts, getAllCollections } from '@/lib/shopify';
 import type { Locale } from '@/lib/i18n/config';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,6 +12,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = await getDictionary(locale);
   const products = await getProducts(undefined, 8);
+  const collections = await getAllCollections(20);
 
   return (
     <div className="flex flex-col">

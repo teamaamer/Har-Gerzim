@@ -195,7 +195,15 @@
     "title": "سلة التسوق",
     "empty": "سلتك فارغة",
     "emptyDescription": "يبدو أنك لم تضف منتجات إلى السلة بعد",
-"itemsInCart": "عناصر في السلة"
+    "itemsInCart": "عناصر في السلة",
+    "orderSummary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "total": "الإجمالي",
+    "calculatedAtCheckout": "يحسب عند الدفع",
+    "agreeToTerms": "أوافق على",
+    "termsAndConditions": "الشروط والأحكام",
+    "termsRequired": "يرجى الموافقة على الشروط والأحكام للمتابعة"
   },
   "account": {
     "login": {

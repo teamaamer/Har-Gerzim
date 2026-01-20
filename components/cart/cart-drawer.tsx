@@ -185,6 +185,17 @@ export function CartDrawer({ open, onOpenChange, locale, dict }: CartDrawerProps
                 </span>
               </label>
 
+              <Link href={`/${locale}/cart`} className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full border-2 border-gold-600 text-gold-600 hover:bg-gold-50 font-semibold"
+                  size="lg"
+                  onClick={() => onOpenChange(false)}
+                >
+                  {dict.common.viewCart || 'View Cart'}
+                </Button>
+              </Link>
+
               <Button
                 className="w-full bg-gold-600 hover:bg-gold-700 text-navy-900 font-bold shadow-lg"
                 size="lg"

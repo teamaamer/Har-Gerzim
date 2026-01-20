@@ -1,5 +1,5 @@
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { getProducts } from '@/lib/shopify';
+import { getProducts, getAllCollections } from '@/lib/shopify';
 import type { Locale } from '@/lib/i18n/config';
 import { HeroSection } from '@/components/home/hero-section';
 import { ScrollVideo } from '@/components/home/scroll-video';
@@ -15,6 +15,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = await getDictionary(locale);
   const products = await getProducts(undefined, 8);
+  const collections = await getAllCollections(20, locale);
 
   return (
     <>
@@ -26,7 +27,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
         <ScrollVideo locale={locale} dict={dict} />
         
         <section id="collections">
-          <FeaturedCollections locale={locale} dict={dict} />
+          <FeaturedCollections locale={locale} dict={dict} collections={collections} />
         </section>
         
         <BestSellers locale={locale} dict={dict} products={products} />

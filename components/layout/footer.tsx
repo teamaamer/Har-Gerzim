@@ -2,13 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, MapPin, Mail, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import type { Locale } from '@/lib/i18n/config';
+import type { ShopifyCollection } from '@/lib/shopify/types';
 
 interface FooterProps {
   locale: Locale;
   dict: any;
+  collections: ShopifyCollection[];
 }
 
-export function Footer({ locale, dict }: FooterProps) {
+export function Footer({ locale, dict, collections }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -68,9 +70,16 @@ export function Footer({ locale, dict }: FooterProps) {
           <div>
             <h3 className="font-bold text-gold-400 mb-4 text-lg">{dict.footer.shop}</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link href={`/${locale}/collections/tahini`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.tahini}</Link></li>
-              <li><Link href={`/${locale}/collections/halawa`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.halawa}</Link></li>
-              <li><Link href={`/${locale}/collections/olive-oil`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.home.collections.oliveOil}</Link></li>
+              {collections.slice(0, 4).map((collection) => (
+                <li key={collection.handle}>
+                  <Link 
+                    href={`/${locale}/collections/${collection.handle}`} 
+                    className="text-gray-300 hover:text-gold-400 transition-colors inline-block"
+                  >
+                    {collection.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

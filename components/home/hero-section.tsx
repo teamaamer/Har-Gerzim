@@ -106,7 +106,7 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                     asChild 
                     size="lg" 
                     variant="outline"
-                    className="w-full sm:w-auto border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-base font-semibold px-6 py-5 rounded-xl transition-all duration-300"
+                    className="w-full sm:w-auto border-2 border-white/50 text-white hover:bg-white hover:text-navy-900 hover:border-white backdrop-blur-sm text-base font-semibold px-6 py-5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <Link href={`/${locale}#about`}>
                       {dict.home.hero.cta.secondary}

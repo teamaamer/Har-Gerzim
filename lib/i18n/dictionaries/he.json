@@ -195,7 +195,15 @@
     "title": "סל הקניות שלך",
     "empty": "הסל שלך ריק",
     "emptyDescription": "נראה שעדיין לא הוספת מוצרים לסל",
-"itemsInCart": "פריטים בסל"
+    "itemsInCart": "פריטים בסל",
+    "orderSummary": "סיכום הזמנה",
+    "subtotal": "סכום ביניים",
+    "shipping": "משלוח",
+    "total": "סה״כ",
+    "calculatedAtCheckout": "יחושב בקופה",
+    "agreeToTerms": "אני מסכים ל",
+    "termsAndConditions": "תנאים והגבלות",
+    "termsRequired": "יש לאשר את התנאים וההגבלות כדי להמשיך"
   },
   "account": {
     "login": {

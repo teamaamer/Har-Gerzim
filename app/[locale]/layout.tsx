@@ -1,9 +1,11 @@
 import { Inter, Heebo } from 'next/font/google';
 import { locales, type Locale, localeDirections } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/get-dictionary';
+import { getAllCollections } from '@/lib/shopify';
 import { CartProvider } from '@/components/cart/cart-provider';
 import { CustomerProvider } from '@/contexts/customer-context';
 import { CookieConsentBanner } from '@/components/cookie-consent-banner';
+import { PageTransition } from '@/components/page-transition';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import '../globals.css';
@@ -64,15 +66,18 @@ export default async function LocaleLayout({
   const direction = localeDirections[localeTyped];
   const fontClass = locale === 'he' ? heebo.variable : inter.variable;
   const dict = await getDictionary(localeTyped);
+  const collections = await getAllCollections(20, locale);
 
   return (
     <html lang={locale} dir={direction} className={fontClass}>
       <body className={locale === 'he' ? 'font-hebrew' : 'font-sans'}>
         <CustomerProvider>
           <CartProvider>
-            <Header locale={localeTyped} dict={dict} />
-            {children}
-            <Footer locale={localeTyped} dict={dict} />
+            <Header locale={localeTyped} dict={dict} collections={collections} />
+            <PageTransition>
+              {children}
+            </PageTransition>
+            <Footer locale={localeTyped} dict={dict} collections={collections} />
             <CookieConsentBanner dict={dict} />
           </CartProvider>
         </CustomerProvider>

@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, Globe, User, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -9,6 +11,7 @@ import { useCart } from '@/components/cart/cart-provider';
 import { useCustomer } from '@/contexts/customer-context';
 import { CartDrawer } from '@/components/cart/cart-drawer';
 import type { Locale } from '@/lib/i18n/config';
+import type { ShopifyCollection } from '@/lib/shopify/types';
 import { locales, localeNames } from '@/lib/i18n/config';
 import { useState, useEffect } from 'react';
 import { SmoothScrollLink } from './smooth-scroll-link';
@@ -16,11 +19,13 @@ import { SmoothScrollLink } from './smooth-scroll-link';
 interface HeaderProps {
   locale: Locale;
   dict: any;
+  collections: ShopifyCollection[];
 }
 
-export function Header({ locale, dict }: HeaderProps) {
+export function Header({ locale, dict, collections }: HeaderProps) {
   const { cart } = useCart();
   const { customer, isAuthenticated } = useCustomer();
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -29,6 +34,9 @@ export function Header({ locale, dict }: HeaderProps) {
   
   const totalItems = cart?.totalQuantity || 0;
   const availableLocales = locales.filter(l => l !== locale);
+  
+  // Get path without locale prefix
+  const pathWithoutLocale = pathname?.replace(`/${locale}`, '') || '';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,12 +52,10 @@ export function Header({ locale, dict }: HeaderProps) {
     isSpecial: true 
   };
 
-  const productCategories = [
-    { href: `/${locale}/collections/tahini`, label: dict.home.collections.tahini },
-    { href: `/${locale}/collections/halawa`, label: dict.home.collections.halawa },
-    { href: `/${locale}/collections/olive-oil`, label: dict.home.collections.oliveOil },
-    { href: `/${locale}/collections/coffee`, label: dict.home.collections.coffee },
-  ];
+  const productCategories = collections.map(collection => ({
+    href: `/${locale}/collections/${collection.handle}`,
+    label: collection.title,
+  }));
 
   const navLinks = [
     { href: `/${locale}`, label: dict.nav.home, isHash: false },
@@ -166,26 +172,40 @@ export function Header({ locale, dict }: HeaderProps) {
               <ChevronDown className="h-3 w-3" />
             </Button>
             
-            {languageMenuOpen && (
-              <>
-                <div 
-                  className="fixed inset-0 z-30" 
-                  onClick={() => setLanguageMenuOpen(false)}
-                />
-                <div className="absolute right-0 mt-2 w-40 bg-white/90 backdrop-blur-xl border border-white/20 rounded-lg shadow-lg py-2 z-40">
-                  {availableLocales.map((loc) => (
-                    <Link
-                      key={loc}
-                      href={`/${loc}`}
-                      className="block px-4 py-2 text-sm text-navy-900 hover:bg-gold-50 hover:text-gold-600 transition-colors"
-                      onClick={() => setLanguageMenuOpen(false)}
-                    >
-                      {localeNames[loc]}
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
+            <AnimatePresence>
+              {languageMenuOpen && (
+                <>
+                  <div 
+                    className="fixed inset-0 z-30" 
+                    onClick={() => setLanguageMenuOpen(false)}
+                  />
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute right-0 mt-2 w-40 bg-white/90 backdrop-blur-xl border border-white/20 rounded-lg shadow-lg py-2 z-40"
+                  >
+                    {availableLocales.map((loc, index) => (
+                      <motion.div
+                        key={loc}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05, duration: 0.2 }}
+                      >
+                        <Link
+                          href={`/${loc}${pathWithoutLocale}`}
+                          className="block px-4 py-2 text-sm text-navy-900 hover:bg-gold-50 hover:text-gold-600 transition-colors"
+                          onClick={() => setLanguageMenuOpen(false)}
+                        >
+                          {localeNames[loc]}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
           </div>
 
           <Button

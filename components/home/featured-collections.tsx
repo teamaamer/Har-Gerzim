@@ -5,22 +5,24 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { Locale } from '@/lib/i18n/config';
+import type { ShopifyCollection } from '@/lib/shopify/types';
 import { OliveParticles } from '@/components/decorative/olive-particles';
 import { GradientOrb } from '@/components/decorative/gradient-orb';
 
 interface FeaturedCollectionsProps {
   locale: Locale;
   dict: any;
+  collections: ShopifyCollection[];
 }
 
-const collections = [
-  { handle: 'tahini', image: '/categories/Tahini.png' },
-  { handle: 'halawa', image: '/categories/Halawa.png' },
-  { handle: 'olive-oil', image: '/categories/Olive Oil.png' },
-  { handle: 'coffee', image: '/categories/Coffee.jpeg' },
-];
+const collectionImages: Record<string, string> = {
+  'tahini': '/categories/Tahini.png',
+  'halawa': '/categories/Halawa.png',
+  'olive-oil': '/categories/Olive Oil.png',
+  'coffee': '/categories/Coffee.jpeg',
+};
 
-export function FeaturedCollections({ locale, dict }: FeaturedCollectionsProps) {
+export function FeaturedCollections({ locale, dict, collections }: FeaturedCollectionsProps) {
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-b from-white to-muted/30 overflow-hidden">
       <OliveParticles count={6} color="#92400e" />
@@ -40,10 +42,8 @@ export function FeaturedCollections({ locale, dict }: FeaturedCollectionsProps) 
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {collections.map((collection, index) => {
-            const collectionKey = collection.handle.replace('-', '');
-            const name = dict.home.collections[collectionKey === 'oliveoil' ? 'oliveOil' : collectionKey];
-            const desc = dict.home.collections[`${collectionKey === 'oliveoil' ? 'oliveOil' : collectionKey}Desc`];
+          {collections.slice(0, 4).map((collection, index) => {
+            const imageUrl = collection.image?.url || collectionImages[collection.handle] || '/logo.png';
             
             return (
               <motion.div
@@ -62,8 +62,8 @@ export function FeaturedCollections({ locale, dict }: FeaturedCollectionsProps) 
                   
                   <div className="aspect-square relative bg-gradient-to-br from-navy-50 to-gold-50/50 flex-shrink-0">
                     <Image
-                      src={collection.image}
-                      alt={name}
+                      src={imageUrl}
+                      alt={collection.title}
                       fill
                       className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
                     />
@@ -71,10 +71,10 @@ export function FeaturedCollections({ locale, dict }: FeaturedCollectionsProps) 
                   
                   <div className="p-6 relative flex flex-col flex-grow">
                     <h3 className="text-xl font-bold text-navy-900 mb-2 group-hover:text-gold-600 transition-colors">
-                      {name}
+                      {collection.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3 flex-grow">
-                      {desc}
+                      {collection.description || ''}
                     </p>
                     <div className="flex items-center text-gold-600 font-semibold text-sm group-hover:gap-2 transition-all mt-auto">
                       <span>{dict.home.collections.explore}</span>

@@ -1,6 +1,7 @@
 import client from './client';
 import {
   GET_COLLECTION_QUERY,
+  GET_ALL_COLLECTIONS_QUERY,
   GET_PRODUCT_QUERY,
   GET_PRODUCTS_QUERY,
   SEARCH_PRODUCTS_QUERY,
@@ -32,6 +33,33 @@ export async function getCollection(handle: string): Promise<ShopifyCollection |
   } catch (error) {
     console.error('Error fetching collection:', error);
     return null;
+  }
+}
+
+export async function getAllCollections(first: number = 10, locale?: string): Promise<ShopifyCollection[]> {
+  try {
+    // Map locale to Shopify language codes
+    const languageMap: Record<string, string> = {
+      'en': 'EN',
+      'he': 'HE',
+      'ar': 'AR',
+    };
+    
+    const language = locale ? languageMap[locale] || 'EN' : 'EN';
+    
+    const { data, errors } = await client.request(GET_ALL_COLLECTIONS_QUERY, {
+      variables: { first, language },
+    });
+
+    if (errors) {
+      console.error('Shopify API errors:', errors);
+      return [];
+    }
+
+    return data?.collections?.edges?.map((edge: any) => edge.node) || [];
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    return [];
   }
 }
 

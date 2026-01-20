@@ -195,7 +195,15 @@
     "title": "Your Cart",
     "empty": "Your cart is empty",
     "emptyDescription": "Looks like you haven't added any products yet",
-"itemsInCart": "Items in cart"
+    "itemsInCart": "Items in cart",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "calculatedAtCheckout": "Calculated at checkout",
+    "agreeToTerms": "I agree to the",
+    "termsAndConditions": "terms and conditions",
+    "termsRequired": "Please accept the terms and conditions to proceed"
   },
   "account": {
     "login": {

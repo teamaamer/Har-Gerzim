@@ -1,10 +1,13 @@
 import { MetadataRoute } from 'next';
 import { locales } from '@/lib/i18n/config';
+import { getAllCollections } from '@/lib/shopify';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const collections = await getAllCollections(50, 'en');
+  
+  const staticRoutes = [
     '',
     '/about',
     '/contact',
@@ -15,19 +18,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy',
     '/cookies',
     '/accessibility',
-    '/collections/tahini',
-    '/collections/hummus',
-    '/collections/olive-oil',
   ];
 
-  const locales = ['he', 'en'];
+  const collectionRoutes = collections.map(collection => `/collections/${collection.handle}`);
+  const allRoutes = [...staticRoutes, ...collectionRoutes];
+
+  const supportedLocales = ['he', 'en', 'ar'];
   
-  const urls = locales.flatMap((locale) =>
-    routes.map((route) => ({
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/${locale}${route}`,
+  const urls = supportedLocales.flatMap((locale) =>
+    allRoutes.map((route) => ({
+      url: `${baseUrl}/${locale}${route}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
-      priority: route === '' ? 1.0 : 0.8,
+      priority: route === '' ? 1.0 : route.startsWith('/collections') ? 0.9 : 0.8,
     }))
   );
 

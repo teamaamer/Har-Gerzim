@@ -1,3 +1,22 @@
+export const GET_ALL_COLLECTIONS_QUERY = `
+  query GetAllCollections($first: Int = 10, $language: LanguageCode) @inContext(language: $language) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          handle
+          title
+          description
+          image {
+            url
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const PRODUCT_FRAGMENT = `
   fragment ProductFragment on Product {
     id
