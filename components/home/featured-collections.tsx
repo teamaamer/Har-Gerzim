@@ -41,7 +41,7 @@ export function FeaturedCollections({ locale, dict, collections }: FeaturedColle
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {collections.slice(0, 4).map((collection, index) => {
             const imageUrl = collection.image?.url || collectionImages[collection.handle] || '/logo.png';
             

@@ -105,19 +105,21 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
               disabled={!product.availableForSale || isLoading || isAdding}
               variant="outline"
               size="sm"
-              className="flex-1 border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white hover:scale-105 hover:shadow-md transition-all duration-200"
+              className="flex-1 border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white hover:scale-105 hover:shadow-md transition-all duration-200 text-xs sm:text-sm px-2 sm:px-4"
             >
-              <ShoppingCart className="h-4 w-4 mr-1" />
-              {dict.common.addToCart}
+              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
+              <span className="hidden sm:inline">{dict.common.addToCart}</span>
+              <span className="sm:hidden">Add</span>
             </Button>
             <Button
               onClick={handleBuyNow}
               disabled={!product.availableForSale || isLoading || isAdding}
               size="sm"
-              className="flex-1 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-semibold hover:scale-105 hover:shadow-lg hover:shadow-gold-500/50 transition-all duration-200"
+              className="flex-1 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-semibold hover:scale-105 hover:shadow-lg hover:shadow-gold-500/50 transition-all duration-200 text-xs sm:text-sm px-2 sm:px-4"
             >
-              <Zap className="h-4 w-4 mr-1" />
-              {dict.common.buyNow || 'Buy Now'}
+              <Zap className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
+              <span className="hidden sm:inline">{dict.common.buyNow}</span>
+              <span className="sm:hidden">Buy</span>
             </Button>
           </div>
         </div>

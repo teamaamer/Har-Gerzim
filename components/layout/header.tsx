@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, Globe, User, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useCart } from '@/components/cart/cart-provider';
 import { useCustomer } from '@/contexts/customer-context';
 import { CartDrawer } from '@/components/cart/cart-drawer';
@@ -246,6 +247,9 @@ export function Header({ locale, dict, collections }: HeaderProps) {
               </Button>
             </SheetTrigger>
             <SheetContent side={locale === 'he' ? 'left' : 'right'} className="w-[300px] bg-white">
+              <VisuallyHidden>
+                <SheetTitle>Navigation Menu</SheetTitle>
+              </VisuallyHidden>
               <nav className="flex flex-col gap-4 mt-8">
                 <Link
                   href={`/${locale}`}
