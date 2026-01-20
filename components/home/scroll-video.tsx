@@ -67,7 +67,7 @@ export function ScrollVideo({ locale, dict }: ScrollVideoProps) {
     const loadImage = (index: number) => {
       return new Promise<void>((resolve) => {
         const img = new window.Image();
-        img.src = `/scroll-frames/frame-${String(index).padStart(4, '0')}.jpg`;
+        img.src = `/scroll-frames-webp/frame-${String(index).padStart(4, '0')}.webp`;
         img.onload = () => {
           loadedImages[index - 1] = img;
           loadedCount++;
