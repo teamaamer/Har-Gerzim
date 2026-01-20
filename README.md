@@ -1,30 +1,38 @@
 # Loza Mount Gerizim | שיווק הר גריזים
 
-A premium, production-ready headless Shopify storefront built with Next.js 14+, featuring bilingual support (Hebrew RTL + English LTR), age verification, and a conversion-optimized UI/UX.
+A premium, production-ready headless Shopify storefront built with Next.js 16+, featuring trilingual support (Hebrew RTL, English, Arabic), dynamic collections, smooth page transitions, and a conversion-optimized UI/UX.
 
 ## 🚀 Features
 
+### Core Features
 - **Headless Shopify Integration**: Full Storefront API integration for products, collections, cart, and checkout
-- **Bilingual Support**: Hebrew (RTL) and English (LTR) with seamless language switching
-- **Premium UI/UX**: Built with shadcn/ui, TailwindCSS, and Framer Motion for smooth animations
+- **Trilingual Support**: Hebrew (RTL), English (LTR), and Arabic (RTL) with seamless language switching
+- **Dynamic Collections**: Collections automatically fetched from Shopify with locale-aware translations
+- **Smooth Animations**: Page transitions, language switcher animations, and micro-interactions with Framer Motion
+- **Premium UI/UX**: Built with shadcn/ui, TailwindCSS, and modern design patterns
+- **Cart Management**: Full cart page with drawer, quantity controls, and order summary
+- **Customer Accounts**: Registration, login, profile management, and order history
 - **Age Verification**: 18+ gate for alcohol products with compliance features
-- **SEO Optimized**: Metadata, JSON-LD structured data, sitemap, and robots.txt
+
+### Technical Features
+- **SEO Optimized**: Dynamic metadata, JSON-LD structured data, multilingual sitemap, and robots.txt
 - **Accessibility**: WCAG 2.1 AA compliant with keyboard navigation and screen reader support
 - **Legal Compliance**: Complete legal pages (Privacy, Terms, Returns, Shipping, Cookies, Accessibility)
 - **Contact Form**: Email integration with Nodemailer
-- **Cart Management**: Persistent cart with Shopify checkout integration
 - **Responsive Design**: Mobile-first approach with premium desktop experience
+- **Performance**: Optimized images, code splitting, and fast page loads
 
 ## 📋 Tech Stack
 
-- **Framework**: Next.js 14+ (App Router)
+- **Framework**: Next.js 16.1.1 (App Router with Turbopack)
 - **Language**: TypeScript
 - **Styling**: TailwindCSS + shadcn/ui components
 - **Icons**: Lucide React
 - **Animations**: Framer Motion
-- **Fonts**: Inter (English), Heebo (Hebrew)
-- **E-commerce**: Shopify Storefront API
+- **Fonts**: Inter (English), Heebo (Hebrew), System fonts (Arabic)
+- **E-commerce**: Shopify Storefront API + Customer Account API
 - **Email**: Nodemailer
+- **State Management**: React Context API
 
 ## 🛠️ Prerequisites
 
@@ -93,11 +101,12 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ### 2. Create Collections
 
-Create the following collections in Shopify Admin:
-- **Arak** (handle: `arak`)
-- **Tahini** (handle: `tahini`)
-- **Hummus** (handle: `hummus`)
-- **Olive Oil** (handle: `olive-oil`)
+Create collections in Shopify Admin with any handles you want. The site will automatically fetch and display them dynamically. For best results:
+- Add collection images in Shopify
+- Translate collection titles and descriptions for each language (Hebrew, English, Arabic)
+- Collections will appear in the header navigation, footer, and featured collections section
+
+**Note**: Collections are fetched dynamically from Shopify, so any changes in your Shopify admin will automatically reflect on the site.
 
 ### 3. Add Product Metafields
 
@@ -127,6 +136,26 @@ Add the tag `alcohol` or `arak` to any alcohol products to trigger 18+ badges an
    - Generate a password for "Mail"
 3. Use this app password in `EMAIL_PASS` in `.env.local`
 
+## ✨ Recent Updates
+
+### Dynamic Collections System
+- Collections automatically fetched from Shopify
+- Locale-aware translations (Hebrew, English, Arabic)
+- No hardcoded collection handles needed
+- Updates in Shopify reflect immediately on site
+
+### Enhanced User Experience
+- **Smooth Page Transitions**: Animated page changes when switching languages
+- **Language Switcher Animations**: Dropdown menu with fade and slide effects
+- **Path Preservation**: Language switcher maintains current page when switching
+- **Cart Page**: Full-featured cart page with order summary and quantity controls
+- **View Cart Button**: Easy access to cart page from cart drawer
+
+### Improved Translations
+- Complete cart page translations (Hebrew, English, Arabic)
+- All UI elements properly localized
+- Collection titles and descriptions from Shopify translations
+
 ## 🚀 Development
 
 Run the development server:
@@ -137,7 +166,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-The app will redirect to `/he` (Hebrew) by default. You can access English at `/en`.
+The app will redirect to `/he` (Hebrew) by default. You can access:
+- Hebrew: `/he`
+- English: `/en`
+- Arabic: `/ar`
+
+Language switching is available in the header with smooth animations and path preservation.
 
 ## 🏗️ Build
 
@@ -159,32 +193,39 @@ npm start
 har-bracha-dev/
 ├── app/
 │   ├── [locale]/              # Locale-based routing
-│   │   ├── (store)/           # Store pages (home, collections, products)
+│   │   ├── (store)/           # Store pages (home, collections, products, cart)
 │   │   ├── (legal)/           # Legal pages (about, terms, privacy, etc.)
-│   │   └── layout.tsx         # Locale layout with fonts and providers
-│   ├── api/                   # API routes (cart, contact)
+│   │   └── layout.tsx         # Locale layout with fonts, providers, and page transitions
+│   ├── api/                   # API routes (cart, contact, customer)
 │   ├── globals.css            # Global styles
 │   ├── layout.tsx             # Root layout
 │   ├── page.tsx               # Root redirect
-│   ├── sitemap.ts             # Dynamic sitemap
-│   └── robots.ts              # Robots.txt
+│   ├── sitemap.ts             # Dynamic sitemap with collections
+│   ├── robots.ts              # Robots.txt
+│   └── icon.png               # Favicon
 ├── components/
 │   ├── ui/                    # shadcn/ui components
-│   ├── layout/                # Header, Footer
-│   ├── cart/                  # Cart provider and drawer
+│   ├── layout/                # Header, Footer with dynamic collections
+│   ├── cart/                  # Cart provider, drawer, and full cart page
+│   ├── home/                  # Homepage sections (hero, featured collections, etc.)
+│   ├── products/              # Product components with variant selection
+│   ├── decorative/            # Decorative elements (particles, gradients)
 │   ├── age-gate/              # Age verification
-│   ├── products/              # Product components
+│   ├── page-transition.tsx    # Smooth page transitions
+│   ├── cookie-consent-banner.tsx  # Cookie consent
 │   └── contact-form.tsx       # Contact form
+├── contexts/
+│   └── customer-context.tsx   # Customer authentication context
 ├── lib/
 │   ├── i18n/                  # Internationalization
-│   │   ├── config.ts          # Locale configuration
-│   │   ├── dictionaries/      # Translation files (he.json, en.json)
+│   │   ├── config.ts          # Locale configuration (he, en, ar)
+│   │   ├── dictionaries/      # Translation files (he.json, en.json, ar.json)
 │   │   └── get-dictionary.ts  # Dictionary loader
 │   ├── shopify/               # Shopify integration
 │   │   ├── client.ts          # API client
-│   │   ├── queries.ts         # GraphQL queries
+│   │   ├── queries.ts         # GraphQL queries (including getAllCollections)
 │   │   ├── types.ts           # TypeScript types
-│   │   └── index.ts           # Helper functions
+│   │   └── index.ts           # Helper functions with locale support
 │   └── utils.ts               # Utility functions
 ├── middleware.ts              # Locale routing middleware
 ├── tailwind.config.js         # TailwindCSS configuration
@@ -227,13 +268,19 @@ colors: {
 Edit translation files in `lib/i18n/dictionaries/`:
 - `he.json` - Hebrew translations
 - `en.json` - English translations
+- `ar.json` - Arabic translations
+
+**Note**: Product collections are automatically translated from Shopify. Make sure to add translations for your collections in Shopify admin for each language.
 
 ### Collections
 
-Update collection handles in:
-- `app/[locale]/(store)/page.tsx` (home page)
-- `components/layout/header.tsx` (navigation)
-- `components/layout/footer.tsx` (footer links)
+Collections are now **dynamically fetched** from Shopify and automatically appear in:
+- Header navigation dropdown
+- Footer links
+- Featured collections section on homepage
+- Sitemap
+
+Simply create or update collections in Shopify admin, and they'll automatically appear on the site with proper translations.
 
 ## 🔒 Compliance Features
 
