@@ -162,7 +162,8 @@
     "trust": {
       "delivery": "التوصيل 3-7 أيام عمل",
       "israelOnly": "التوصيل في إسرائيل فقط",
-"secureCheckout": "دفع آمن عبر Shopify"
+      "secureCheckout": "دفع آمن عبر Shopify",
+      "secureCheckoutVia": "دفع آمن عبر"
     },
     "scrollVideo": {
       "loading": "جاري تحميل الفيديو...",

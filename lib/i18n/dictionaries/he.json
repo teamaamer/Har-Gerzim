@@ -162,7 +162,8 @@
     "trust": {
       "delivery": "משלוח 3-7 ימי עסקים",
       "israelOnly": "משלוח בישראל בלבד",
-"secureCheckout": "תשלום מאובטח דרך Shopify"
+      "secureCheckout": "תשלום מאובטח דרך Shopify",
+      "secureCheckoutVia": "תשלום מאובטח דרך"
     },
     "scrollVideo": {
       "loading": "טוען וידאו...",

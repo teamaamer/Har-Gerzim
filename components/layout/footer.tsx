@@ -171,11 +171,16 @@ export function Footer({ locale, dict, collections }: FooterProps) {
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold-400" />
-                {dict.home.trust.age18}
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold-400" />
-                {dict.home.trust.secureCheckout}
+                <span className="flex items-center">
+                  <span>{dict.home.trust.secureCheckoutVia}&nbsp;</span>
+                  <Image 
+                    src="/shopify-mobile.svg" 
+                    alt="Shopify"
+                    width={40}
+                    height={12}
+                    className="h-3 sm:h-3.5 w-auto opacity-80"
+                  />
+                </span>
               </span>
             </div>
           </div>

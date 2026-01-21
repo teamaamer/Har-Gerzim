@@ -162,7 +162,8 @@
     "trust": {
       "delivery": "Delivery 3-7 Business Days",
       "israelOnly": "Israel Delivery Only",
-"secureCheckout": "Secure Checkout via Shopify"
+      "secureCheckout": "Secure Checkout via Shopify",
+      "secureCheckoutVia": "Secure Checkout via"
     },
     "scrollVideo": {
       "loading": "Loading Video...",
