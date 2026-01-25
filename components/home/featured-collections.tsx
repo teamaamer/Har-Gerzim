@@ -20,6 +20,8 @@ const collectionImages: Record<string, string> = {
   'halawa': '/categories/Halawa.png',
   'olive-oil': '/categories/Olive Oil.png',
   'coffee': '/categories/Coffee.jpeg',
+  'zaatar': '/categories/Zaatar.png',
+  'za-atar': '/categories/Zaatar.png',
 };
 
 export function FeaturedCollections({ locale, dict, collections }: FeaturedCollectionsProps) {
@@ -41,8 +43,8 @@ export function FeaturedCollections({ locale, dict, collections }: FeaturedColle
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {collections.slice(0, 4).map((collection, index) => {
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+          {collections.slice(0, 5).map((collection, index) => {
             const imageUrl = collection.image?.url || collectionImages[collection.handle] || '/logo.png';
             
             return (

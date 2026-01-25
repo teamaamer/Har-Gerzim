@@ -49,18 +49,18 @@
   },
   "home": {
     "hero": {
-      "title": "Loza Mount Gerizim",
-      "subtitle": "Premium Local Products from Har Bracha - Handcrafted Tahini, Halawa & Olive Oil",
+      "title": "Authentic Flavors from Mount Gerizim",
+      "subtitle": "Handcrafted with Love: Premium Zaatar, Olive Oil & Halawa from Har Bracha's Ancient Lands",
       "description": "We proudly present traditional quality products crafted with care and love from Har Bracha - Gerizim. Each product reflects our local tradition and authenticity.",
       "cta": {
         "primary": "Shop Now",
         "secondary": "Our Story"
       },
-      "brandMark": "From Mount Gerizim",
+      "brandMark": "Trusted Authenticity Since 2006",
       "trustBullets": {
         "israelDelivery": "Israel Delivery Only",
         "deliveryTime": "3-7 Business Days",
-        "secureCheckout": "Secure Checkout"
+        "yearsExperience": "18+ Years of Experience"
       }
     },
     "collections": {

@@ -21,14 +21,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
     <>
       <main id="main-content" className="flex flex-col">
         <section id="home">
-          <HeroSection locale={locale} dict={dict} />
+          <HeroSection locale={locale} dict={dict} products={products} />
         </section>
-        
-        <ScrollVideo locale={locale} dict={dict} />
         
         <section id="collections">
           <FeaturedCollections locale={locale} dict={dict} collections={collections} />
         </section>
+        
+        <ScrollVideo locale={locale} dict={dict} />
         
         <BestSellers locale={locale} dict={dict} products={products} />
         

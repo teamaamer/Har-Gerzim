@@ -188,7 +188,7 @@ export function Header({ locale, dict, collections }: HeaderProps) {
                 className="hover:bg-gold-50 hover:text-gold-600"
                 aria-label="Menu"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
             <SheetContent side={locale === 'he' || locale === 'ar' ? 'right' : 'left'} className="w-[300px] bg-white">
@@ -297,7 +297,7 @@ export function Header({ locale, dict, collections }: HeaderProps) {
               onClick={() => setCartOpen(!cartOpen)}
               aria-label={dict.nav.cart}
             >
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCart className="h-6 w-6" />
               {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gold-500 text-navy-900 text-xs flex items-center justify-center font-bold shadow-lg">
                   {totalItems}
@@ -314,7 +314,7 @@ export function Header({ locale, dict, collections }: HeaderProps) {
             asChild
           >
             <Link href={isAuthenticated ? `/${locale}/account` : `/${locale}/login`}>
-              <User className="h-5 w-5" />
+              <User className="h-6 w-6" />
             </Link>
           </Button>
 
@@ -325,7 +325,7 @@ export function Header({ locale, dict, collections }: HeaderProps) {
               className="flex items-center gap-2 text-sm font-medium text-navy-900 hover:text-gold-600 transition-colors hover:bg-gold-50"
               onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
             >
-              <Globe className="h-4 w-4" />
+              <Globe className="h-5 w-5" />
               <span className="hidden sm:inline">{localeNames[locale]}</span>
               <ChevronDown className="h-3 w-3" />
             </Button>
