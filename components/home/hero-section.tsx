@@ -201,13 +201,16 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                   className="flex-1"
                 >
                   <Button 
-                    asChild 
                     size="lg" 
+                    onClick={() => {
+                      const aboutSection = document.getElementById('about');
+                      if (aboutSection) {
+                        aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
                     className="w-full bg-white text-navy-900 hover:bg-gray-100 text-sm sm:text-base font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
-                    <Link href={`/${locale}#about`}>
-                      {dict.home.hero.cta.secondary}
-                    </Link>
+                    {dict.home.hero.cta.secondary}
                   </Button>
                 </motion.div>
               </motion.div>

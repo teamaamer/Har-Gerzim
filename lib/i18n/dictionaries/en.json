@@ -273,6 +273,16 @@
     "businessName": "Loza Mount Gerizim",
     "businessAddress": "Har Bracha - Gerizim - Israel"
   },
+  "ageGate": {
+    "title": "Age Verification",
+    "message": "This site contains alcoholic products. You must be 18 years or older to enter.",
+    "confirm": "I am 18 years or older",
+    "deny": "I am under 18",
+    "blocked": {
+      "title": "Access Denied",
+      "message": "Sorry, you must be 18 years or older to access this site."
+    }
+  },
   "about": {
     "title": "About Loza Mount Gerizim",
     "content": "Loza Mount Gerizim specializes in producing high-quality traditional food products from Har Bracha - Gerizim. We are proud to offer tahini, hummus, and olive oil produced using traditional methods while maintaining uncompromising quality.\n\nEach product is carefully crafted using selected raw materials and preserving ancient recipes. We believe in small-scale, quality production that allows us to maintain a high level of quality in each of our products.\n\nOur products reflect the local tradition and authenticity of the region, and are produced with respect for the environment and the local community."

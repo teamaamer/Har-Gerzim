@@ -5,6 +5,7 @@ import { getAllCollections } from '@/lib/shopify';
 import { CartProvider } from '@/components/cart/cart-provider';
 import { CustomerProvider } from '@/contexts/customer-context';
 import { CookieConsentBanner } from '@/components/cookie-consent-banner';
+import { AgeGateProvider } from '@/components/age-gate/age-gate-provider';
 import { PageTransition } from '@/components/page-transition';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -26,6 +27,15 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+export function generateViewport() {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  };
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const dict = await getDictionary(locale as Locale);
@@ -38,12 +48,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: dict.home.hero.description,
     keywords: ['tahini', 'hummus', 'olive oil', 'Mount Gerizim', 'Har Bracha', 'Israeli products'],
     authors: [{ name: dict.footer.businessName }],
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 5,
-      userScalable: true,
-    },
     openGraph: {
       type: 'website',
       locale: locale === 'he' ? 'he_IL' : 'en_US',
@@ -71,16 +75,18 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={direction} className={fontClass}>
       <body className={locale === 'he' ? 'font-hebrew' : 'font-sans'}>
-        <CustomerProvider>
-          <CartProvider>
-            <Header locale={localeTyped} dict={dict} collections={collections} />
-            <PageTransition>
-              {children}
-            </PageTransition>
-            <Footer locale={localeTyped} dict={dict} collections={collections} />
-            <CookieConsentBanner dict={dict} />
-          </CartProvider>
-        </CustomerProvider>
+        <AgeGateProvider locale={localeTyped} dict={dict}>
+          <CustomerProvider>
+            <CartProvider>
+              <Header locale={localeTyped} dict={dict} collections={collections} />
+              <PageTransition>
+                {children}
+              </PageTransition>
+              <Footer locale={localeTyped} dict={dict} collections={collections} />
+              <CookieConsentBanner dict={dict} />
+            </CartProvider>
+          </CustomerProvider>
+        </AgeGateProvider>
       </body>
     </html>
   );

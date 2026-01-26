@@ -33,7 +33,7 @@ export function CookieConsentBanner({ dict }: CookieConsentBannerProps) {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom duration-500">
+    <div className="fixed bottom-0 left-0 right-0 z-40 animate-in slide-in-from-bottom duration-500">
       <div className="mx-4 mb-4 md:mx-6 md:mb-6">
         <div className="container mx-auto max-w-5xl">
           <div className="bg-white dark:bg-navy-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-navy-700 p-6 md:p-8">
