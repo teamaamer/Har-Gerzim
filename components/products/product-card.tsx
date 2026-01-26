@@ -76,22 +76,22 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
         </div>
       </Link>
       
-      <div className="flex flex-col flex-grow p-4">
-        <Link href={`/${locale}/products/${product.handle}`} className="flex-grow">
-          <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors mb-2">
+      <div className="flex flex-col flex-grow p-3 md:p-4">
+        <Link href={`/${locale}/products/${product.handle}`} className="flex-grow min-h-0">
+          <h3 className="font-semibold text-base md:text-lg line-clamp-2 group-hover:text-primary transition-colors mb-2">
             {product.title}
           </h3>
-          <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
+          <p className="text-muted-foreground text-xs md:text-sm line-clamp-2 mb-2">
             {product.description}
           </p>
         </Link>
         
-        <div className="mt-auto space-y-3">
+        <div className="mt-auto space-y-2 md:space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
               {hasMultiplePrices ? (
                 <>
-                  <span className="text-xl font-bold text-primary">
+                  <span className="text-base md:text-xl font-bold text-primary">
                     {formatPrice(minPrice.amount, minPrice.currencyCode, locale)} - {formatPrice(maxPrice.amount, maxPrice.currencyCode, locale)}
                   </span>
                   <span className="text-xs text-muted-foreground">
@@ -99,34 +99,34 @@ export function ProductCard({ product, locale, dict }: ProductCardProps) {
                   </span>
                 </>
               ) : (
-                <span className="text-xl font-bold text-primary">
+                <span className="text-base md:text-xl font-bold text-primary">
                   {formatPrice(minPrice.amount, minPrice.currencyCode, locale)}
                 </span>
               )}
             </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex gap-1.5 md:gap-2">
             <Button
               onClick={handleAddToCart}
               disabled={!product.availableForSale || isLoading || isAdding}
               variant="outline"
               size="sm"
-              className="flex-1 border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white hover:scale-105 hover:shadow-md transition-all duration-200 text-xs sm:text-sm px-2 sm:px-4"
+              className="flex-1 border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white hover:scale-105 hover:shadow-md transition-all duration-200 text-xs px-1.5 md:px-3 h-8 md:h-9"
             >
-              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
-              <span className="hidden sm:inline">{dict.common.addToCart}</span>
-              <span className="sm:hidden">{(dict.common.addToCart || 'Add').split(' ')[0]}</span>
+              <ShoppingCart className="h-3 w-3 md:h-4 md:w-4 md:mr-1" />
+              <span className="hidden md:inline">{dict.common.addToCart}</span>
+              <span className="md:hidden">{(dict.common.addToCart || 'Add').split(' ')[0]}</span>
             </Button>
             <Button
               onClick={handleBuyNow}
               disabled={!product.availableForSale || isLoading || isAdding}
               size="sm"
-              className="flex-1 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-semibold hover:scale-105 hover:shadow-lg hover:shadow-gold-500/50 transition-all duration-200 text-xs sm:text-sm px-2 sm:px-4"
+              className="flex-1 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-semibold hover:scale-105 hover:shadow-lg hover:shadow-gold-500/50 transition-all duration-200 text-xs px-1.5 md:px-3 h-8 md:h-9"
             >
-              <Zap className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
-              <span className="hidden sm:inline">{dict.common.buyNow}</span>
-              <span className="sm:hidden">{(dict.common.buyNow || 'Buy').split(' ')[0]}</span>
+              <Zap className="h-3 w-3 md:h-4 md:w-4 md:mr-1" />
+              <span className="hidden md:inline">{dict.common.buyNow}</span>
+              <span className="md:hidden">{(dict.common.buyNow || 'Buy').split(' ')[0]}</span>
             </Button>
           </div>
         </div>

@@ -170,6 +170,27 @@ export const CART_FRAGMENT = `
   }
 `;
 
+export const GET_COLLECTIONS_WITH_PRODUCTS_QUERY = `
+  ${COLLECTION_FRAGMENT}
+  ${PRODUCT_FRAGMENT}
+  query GetCollectionsWithProducts($first: Int = 10, $productsFirst: Int = 5, $language: LanguageCode) @inContext(language: $language) {
+    collections(first: $first) {
+      edges {
+        node {
+          ...CollectionFragment
+          products(first: $productsFirst) {
+            edges {
+              node {
+                ...ProductFragment
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_COLLECTION_QUERY = `
   ${COLLECTION_FRAGMENT}
   ${PRODUCT_FRAGMENT}

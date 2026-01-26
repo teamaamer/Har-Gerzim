@@ -17,7 +17,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
   return (
-    <section className="relative h-screen flex items-start justify-center bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 text-white overflow-hidden pt-4 pb-2 lg:py-8 lg:items-center">
+    <section className="relative min-h-screen lg:h-auto lg:min-h-0 flex items-start justify-center bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 text-white overflow-hidden pt-4 pb-2 lg:py-12 lg:items-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -42,7 +42,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-col gap-2 lg:space-y-3 lg:block"
+              className="flex flex-col gap-2 lg:space-y-2 lg:block"
             >
               {/* Brand Badge */}
               <motion.div
@@ -56,12 +56,12 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
               </motion.div>
 
               {/* Heading */}
-              <div className="space-y-0.5 lg:space-y-2 order-2">
+              <div className="space-y-0.5 lg:space-y-1 order-2">
                 <motion.h1 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]"
+                  className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl font-extrabold tracking-tight leading-[1.1]"
                   style={{
                     textShadow: '0 2px 20px rgba(251, 191, 36, 0.3), 0 0 40px rgba(251, 191, 36, 0.2)'
                   }}
@@ -95,7 +95,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 <div className="col-span-2">
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40 h-full">
                     <div 
-                      className="relative p-4 h-full flex items-center justify-center"
+                      className="relative p-2 h-full flex items-center justify-center"
                       style={{
                         background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
                       }}
@@ -108,12 +108,12 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                         }}
                       />
                       <div className="relative z-10 w-full">
-                        <div className="relative aspect-square max-w-[180px] mx-auto">
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
                           <Image
-                            src="/hero-img-v2.png"
+                            src="/herosectionv2.png"
                             alt="Loza Mount Gerizim Products"
                             fill
-                            sizes="(max-width: 768px) 180px, 250px"
+                            sizes="(max-width: 768px) 100vw, 250px"
                             className="object-contain drop-shadow-2xl"
                             priority
                             quality={90}
@@ -157,7 +157,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="hidden lg:block"
               >
-                <p className="text-base md:text-lg text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                <p className="text-sm md:text-base text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                   {dict.home.hero.subtitle}
                 </p>
               </motion.div>
@@ -177,7 +177,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="flex flex-row gap-3 order-6 lg:order-3"
+                className="flex flex-row gap-2 order-6 lg:order-3"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -187,7 +187,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                   <Button 
                     asChild 
                     size="lg" 
-                    className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3 group shadow-2xl shadow-gold-500/50 hover:shadow-gold-500/70 transition-all duration-300 rounded-xl"
+                    className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-bold text-sm px-4 py-2 group shadow-2xl shadow-gold-500/50 hover:shadow-gold-500/70 transition-all duration-300 rounded-xl"
                   >
                     <Link href={`/${locale}/collections/all`}>
                       {dict.home.hero.cta.primary}
@@ -208,7 +208,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                         aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                     }}
-                    className="w-full bg-white text-navy-900 hover:bg-gray-100 text-sm sm:text-base font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="w-full bg-white text-navy-900 hover:bg-gray-100 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     {dict.home.hero.cta.secondary}
                   </Button>
@@ -221,7 +221,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="hidden lg:grid grid-cols-3 gap-3"
+                className="hidden lg:grid grid-cols-3 gap-2"
               >
                 {[
                   { icon: MapPin, text: dict.home.hero.trustBullets.israelDelivery },
@@ -235,10 +235,10 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                      className="flex flex-col items-center gap-3 p-4 rounded-xl bg-white/90 backdrop-blur-md border-2 border-gold-400/50 hover:border-gold-400 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/90 backdrop-blur-md border-2 border-gold-400/50 hover:border-gold-400 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                     >
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                        <Icon className="h-6 w-6 text-navy-900" />
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                        <Icon className="h-5 w-5 text-navy-900" />
                       </div>
                       <span className="text-sm font-bold text-navy-900 text-center leading-tight">{item.text}</span>
                     </motion.div>
@@ -257,7 +257,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40">
               {/* Smooth Radial Gold Gradient Background */}
               <div 
-                className="relative p-4 sm:p-6 md:p-10"
+                className="relative p-3 sm:p-4 md:p-6"
                 style={{
                   background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
                 }}
@@ -274,13 +274,13 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 {/* Content Container */}
                 <div className="relative z-10">
                   {/* Hero Image Container */}
-                  <div className="relative max-w-[250px] sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
+                  <div className="relative w-full aspect-[3/4] max-w-sm mx-auto overflow-hidden rounded-2xl">
                     <Image
-                      src="/hero-img-v2.png"
+                      src="/herosectionv2.png"
                       alt="Loza Mount Gerizim Products"
-                      width={500}
-                      height={500}
-                      className="w-full h-auto drop-shadow-2xl rounded-2xl"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                      className="object-contain drop-shadow-2xl"
                       priority
                     />
                   </div>

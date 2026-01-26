@@ -73,7 +73,12 @@
       "oliveOilDesc": "زيت زيتون بكر ممتاز",
       "coffee": "قهوة",
       "coffeeDesc": "قهوة محمصة عالية الجودة",
-      "explore": "استكشف"
+      "explore": "استكشف",
+      "viewAll": "عرض الكل"
+    },
+    "categoryProducts": {
+      "title": "منتجات مميزة حسب الفئة",
+      "subtitle": "اكتشف أفضل منتجاتنا من كل مجموعة"
     },
     "bestSellers": {
       "title": "الأكثر مبيعاً",

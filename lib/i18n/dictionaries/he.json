@@ -73,7 +73,12 @@
       "oliveOilDesc": "שמן זית כתית ראשונה",
       "coffee": "קפה",
       "coffeeDesc": "קפה קלוי איכותי",
-      "explore": "לצפייה"
+      "explore": "לצפייה",
+      "viewAll": "צפה בהכל"
+    },
+    "categoryProducts": {
+      "title": "מוצרים מובילים לפי קטגוריה",
+      "subtitle": "גלו את המוצרים המובילים שלנו מכל קולקציה"
     },
     "bestSellers": {
       "title": "המוצרים הנמכרים ביותר",

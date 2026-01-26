@@ -73,7 +73,12 @@
       "oliveOilDesc": "First cold-pressed olive oil",
       "coffee": "Coffee",
       "coffeeDesc": "Premium roasted coffee",
-      "explore": "Explore"
+      "explore": "Explore",
+      "viewAll": "View All"
+    },
+    "categoryProducts": {
+      "title": "Featured Products by Category",
+      "subtitle": "Discover our top products from each collection"
     },
     "bestSellers": {
       "title": "Best Sellers",

@@ -1,9 +1,9 @@
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { getProducts, getAllCollections } from '@/lib/shopify';
+import { getProducts, getCollectionsWithProducts } from '@/lib/shopify';
 import type { Locale } from '@/lib/i18n/config';
 import { HeroSection } from '@/components/home/hero-section';
 import { ScrollVideo } from '@/components/home/scroll-video';
-import { FeaturedCollections } from '@/components/home/featured-collections';
+import { CategoryProducts } from '@/components/home/category-products';
 import { BestSellers } from '@/components/home/best-sellers';
 import { WhyLoza } from '@/components/home/why-loza';
 import { StorySection } from '@/components/home/story-section';
@@ -15,7 +15,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = await getDictionary(locale);
   const products = await getProducts(undefined, 8, locale);
-  const collections = await getAllCollections(20, locale);
+  const collectionsWithProducts = await getCollectionsWithProducts(5, 5, locale);
 
   return (
     <>
@@ -24,9 +24,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <HeroSection locale={locale} dict={dict} products={products} />
         </section>
         
-        <section id="collections">
-          <FeaturedCollections locale={locale} dict={dict} collections={collections} />
-        </section>
+        <CategoryProducts locale={locale} dict={dict} collections={collectionsWithProducts} />
         
         <ScrollVideo locale={locale} dict={dict} />
         
