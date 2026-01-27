@@ -84,59 +84,41 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 </p>
               </motion.div>
 
-              {/* Mobile: Row 1 - Image + Years Card */}
+              {/* Mobile: Row 1 - Hero Image */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="lg:hidden order-4 grid grid-cols-3 gap-2 sm:gap-3"
+                className="lg:hidden order-4"
               >
-                {/* Hero Image - 2/3 width */}
-                <div className="col-span-2">
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40 h-full">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40">
+                  <div 
+                    className="relative p-2 flex items-center justify-center"
+                    style={{
+                      background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
+                    }}
+                  >
                     <div 
-                      className="relative p-2 h-full flex items-center justify-center"
+                      className="absolute inset-0 opacity-10 mix-blend-overlay"
                       style={{
-                        background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                        backgroundSize: '150px 150px'
                       }}
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 mix-blend-overlay"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                          backgroundSize: '150px 150px'
-                        }}
-                      />
-                      <div className="relative z-10 w-full">
-                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                          <Image
-                            src="/herosectionv2.png"
-                            alt="Loza Mount Gerizim Products"
-                            fill
-                            sizes="(max-width: 768px) 100vw, 250px"
-                            className="object-contain drop-shadow-2xl"
-                            priority
-                            quality={90}
-                          />
-                        </div>
+                    />
+                    <div className="relative z-10 w-full">
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
+                        <Image
+                          src="/hero-image.png"
+                          alt="Loza Mount Gerizim Products"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 250px"
+                          className="object-contain drop-shadow-2xl"
+                          priority
+                          quality={90}
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Years Experience Card - 1/3 width */}
-                <div className="col-span-1">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                    className="flex flex-col items-center justify-center gap-2 p-2 rounded-xl bg-white/90 backdrop-blur-md border-2 border-gold-400/50 hover:border-gold-400 hover:bg-white transition-all duration-300 shadow-lg h-full"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                      <Award className="h-5 w-5 text-navy-900" />
-                    </div>
-                    <span className="text-xs font-bold text-navy-900 text-center leading-tight">{dict.home.hero.trustBullets.yearsExperience}</span>
-                  </motion.div>
                 </div>
               </motion.div>
 
@@ -276,7 +258,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                   {/* Hero Image Container */}
                   <div className="relative w-full aspect-[3/4] max-w-sm mx-auto overflow-hidden rounded-2xl">
                     <Image
-                      src="/herosectionv2.png"
+                      src="/hero-image.png"
                       alt="Loza Mount Gerizim Products"
                       fill
                       sizes="(max-width: 1024px) 100vw, 400px"
