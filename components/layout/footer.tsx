@@ -136,19 +136,20 @@ export function Footer({ locale, dict, collections }: FooterProps) {
           <div>
             <h3 className="font-bold text-gold-400 mb-4 text-lg">{dict.footer.support}</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link href={`/${locale}#about`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.about}</Link></li>
-              <li><Link href={`/${locale}#contact`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.contact}</Link></li>
-              <li><Link href={`/${locale}#faq`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.faq}</Link></li>
-              <li><Link href={`/${locale}#trust-policies`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.shipping}</Link></li>
-              <li><Link href={`/${locale}#trust-policies`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.returns}</Link></li>
+              <li><Link href={`/${locale}/contact`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.contact}</Link></li>
+              <li><Link href={`/${locale}/faq`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.faq}</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-bold text-gold-400 mb-4 text-lg">{dict.footer.legal}</h3>
             <ul className="space-y-3 text-sm">
+              <li><Link href={`/${locale}/legal#about`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.about}</Link></li>
               <li><Link href={`/${locale}/legal#terms`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.terms}</Link></li>
               <li><Link href={`/${locale}/legal#privacy`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.privacy}</Link></li>
+              <li><Link href={`/${locale}/legal#shipping`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.shipping}</Link></li>
+              <li><Link href={`/${locale}/legal#returns`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.returns}</Link></li>
+              <li><Link href={`/${locale}/legal#warranty`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.warranty}</Link></li>
               <li><Link href={`/${locale}/legal#cookies`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.cookies}</Link></li>
               <li><Link href={`/${locale}/legal#accessibility`} className="text-gray-300 hover:text-gold-400 transition-colors inline-block">{dict.footer.accessibility}</Link></li>
             </ul>

@@ -272,9 +272,10 @@
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy",
     "accessibility": "Accessibility",
+    "warranty": "Warranty Policy",
     "faq": "FAQ",
     "contact": "Contact",
-    "allRightsReserved": "All Rights Reserved",
+    "allRightsReserved": "All rights reserved",
     "businessName": "Loza Mount Gerizim",
     "businessAddress": "Har Bracha - Gerizim - Israel"
   },
@@ -289,51 +290,61 @@
     }
   },
   "about": {
-    "title": "About Loza Mount Gerizim",
-    "content": "Loza Mount Gerizim specializes in producing high-quality traditional food products from Har Bracha - Gerizim. We are proud to offer tahini, hummus, and olive oil produced using traditional methods while maintaining uncompromising quality.\n\nEach product is carefully crafted using selected raw materials and preserving ancient recipes. We believe in small-scale, quality production that allows us to maintain a high level of quality in each of our products.\n\nOur products reflect the local tradition and authenticity of the region, and are produced with respect for the environment and the local community."
+    "title": "About Har Grizim Marketing",
+    "content": "Har Grizim Marketing is a business for marketing and selling high-quality and premium products, including alcohol products, manufactured in Har Bracha and the Gerizim area, with emphasis on quality, tradition and selected raw materials.\n\nThe website serves as an online sales platform for private customers in Israel only.\n\nAll purchases on the site are intended for ages 18 and over only, in accordance with the law.\n\nContact Details:\nBusiness Name: Har Grizim Marketing\nAddress: Har Bracha - Gerizim - Israel\nPhone: 0522738783"
   },
   "shipping": {
-    "title": "Shipping Policy",
-    "israelOnly": "We ship throughout Israel only.",
-    "deliveryTime": "Delivery time: 3-7 business days from order placement.",
-    "businessDays": "Business days: Sunday to Thursday (excluding Friday, Saturday, and holidays).",
-    "pickup": "Self-pickup available by appointment at 052-2738783.",
-    "cost": "Shipping cost is calculated at checkout based on destination and order weight."
+    "title": "Shipping Policy and Delivery Times",
+    "israelOnly": "Shipments are made within Israel only.",
+    "deliveryTime": "Estimated delivery time: 3-7 business days from order confirmation and full payment.",
+    "businessDays": "Business days do not include Fridays, Saturdays, holiday eves and holidays.",
+    "deliveryNote": "Delivery times are estimated only and do not constitute a commitment.",
+    "delays": "Delays caused by reasons beyond the business's control (force majeure, shipping company delays, etc.) will not be compensated.",
+    "pickup": "Self-pickup is available from the business address: Har Bracha - Gerizim. Pickup will be done by prior appointment only with the business.",
+    "cost": "Shipping cost will be displayed to the customer during the purchase process, before payment confirmation."
   },
   "returns": {
-    "title": "Returns & Cancellations Policy",
-    "consumerLaw": "According to Consumer Protection Law, you may cancel a transaction within 14 days of receiving the product.",
-    "howToCancel": "Cancellation is done by phone at 052-2738783.",
-    "cancellationFee": "A cancellation fee of up to 5% of the transaction price or ₪100, whichever is lower, may be charged.",
-    "refund": "Refund will be processed after the product is returned and inspected.",
-    "condition": "The product must be in original condition, unopened and unused."
+    "title": "Cancellations and Returns Policy",
+    "consumerLaw": "This policy is subject to the provisions of the Consumer Protection Law, 1981.",
+    "cancellationTitle": "Transaction Cancellation",
+    "cancellationRight": "The customer is entitled to cancel a transaction within 14 days from the date of receiving the product or from the date of placing the order - whichever is later.",
+    "howToCancel": "Cancellation will be made by phone contact at: 0522738783",
+    "refundTitle": "Refund",
+    "refund": "Refund will be made to the payment method in which the transaction was made, minus cancellation fees as per law (up to 5% or ₪100 - whichever is lower).",
+    "refundCondition": "Refund will be given only after the product is actually returned and inspected."
   },
   "terms": {
-    "title": "Terms of Use",
-    "cancellation": "Management reserves the right to cancel orders in exceptional cases.",
-    "pricing": "Prices on the site are in Israeli currency (₪) and include VAT.",
-    "images": "Images on the site are for illustration only and the actual product may differ slightly.",
-    "law": "Any dispute will be resolved according to the laws of the State of Israel and in the competent courts in Israel."
+    "title": "Terms of Use (Regulations)",
+    "subtitle": "Terms of Use - Har Grizim Marketing",
+    "intro": "The site is operated by Har Grizim Marketing and serves as a platform for selling products, including alcohol products.",
+    "usageTitle": "Use of the Site",
+    "age": "Use of the site is permitted for ages 18 and over only.",
+    "ageDeclaration": "Placing an order constitutes a declaration that the purchaser meets the age requirement.",
+    "cancellation": "Site management reserves the right to cancel an order in case of error, out of stock, or concern of violation of terms.",
+    "pricingTitle": "Prices and Payment",
+    "pricing": "All prices are displayed in shekels and include VAT as per law.",
+    "payment": "Payment is made through secure payment methods only.",
+    "warrantyTitle": "Warranty",
+    "images": "Images on the site are for illustration only.",
+    "differences": "There may be slight differences between the image and the actual product.",
+    "warrantyScope": "Warranty for products will apply in accordance with the law and business policy only.",
+    "jurisdictionTitle": "Jurisdiction",
+    "law": "The law applicable to these regulations is Israeli law only.",
+    "jurisdiction": "Exclusive jurisdiction is given to the courts in Israel."
   },
   "privacy": {
     "title": "Privacy Policy",
-    "intro": "We respect your privacy and are committed to protecting your personal information.",
-    "dataCollected": "Data Collected",
-    "dataCollectedContent": "We collect information you provide during ordering: name, address, phone, email, and payment details (via Shopify).",
+    "intro": "Har Grizim Marketing respects the privacy of site users and operates in accordance with privacy protection laws in Israel.",
+    "dataCollected": "Information Collected",
+    "dataCollectedContent": "When making a purchase, personal information is collected such as: name, phone number, address and information required for order delivery.",
+    "paymentSecurity": "Payment Security",
+    "paymentSecurityContent": "Payment details are not stored in the site systems and are transferred securely to clearing companies only.",
     "purpose": "Purpose of Use",
-    "purposeContent": "Information is used for order processing, shipping, customer communication, and service improvement.",
+    "purposeContent": "The collected information will be used for site operation, order delivery and customer service only.",
     "thirdParties": "Third Parties",
-    "thirdPartiesContent": "We share information with Shopify (payment processing), shipping companies, and service providers required to fulfill the order.",
-    "security": "Security",
-    "securityContent": "We take reasonable security measures to protect your information.",
-    "retention": "Data Retention",
-    "retentionContent": "We retain information as long as required for business and legal purposes.",
-    "rights": "Your Rights",
-    "rightsContent": "You have the right to access, correct, delete, or restrict the use of your information. Contact us at 052-2738783.",
-    "cookies": "Cookies",
-    "cookiesContent": "The site uses cookies to improve user experience. See Cookie Policy for more information.",
-    "contact": "Contact",
-    "contactContent": "For privacy questions, contact us at 052-2738783."
+    "thirdPartiesContent": "Information will not be transferred to a third party, except to parties required for payment processing or shipping.",
+    "consent": "Consent",
+    "consentContent": "Use of the site constitutes consent to this privacy policy."
   },
   "cookies": {
     "title": "Cookie Policy",
@@ -458,6 +469,19 @@
       "improvementsText": "We regularly review our website to identify and fix accessibility issues. We welcome feedback and are committed to making continuous improvements to ensure our site is accessible to all users.",
       "contactHeading": "Contact Us",
       "contactText": "If you encounter any accessibility barriers or have suggestions for improvement, please contact us at info@lozamountgerizim.com or call 052-273-8783. We will work to resolve the issue promptly."
+    },
+    "warranty": {
+      "title": "Warranty Policy",
+      "intro": "Har Grizim Marketing makes every effort to provide its customers with quality and proper products.",
+      "scope": "Warranty for products sold on the site applies in accordance with the provisions of Israeli law and in accordance with the manufacturer's warranty, if any.",
+      "coverage": "The warranty covers defects caused by faulty manufacturing or malfunction that is not the result of unreasonable use, negligence, natural wear, or use not in accordance with instructions.",
+      "exclusions": "The warranty does not apply to damages caused by incorrect use, improper storage, dropping, breakage, water damage, or any modification or repair made by an unauthorized party.",
+      "defectiveProduct": "In case of a defective product, the customer should contact the business as soon as possible and provide full details, including a description of the malfunction and proof of purchase.",
+      "remedies": "After examining the product, and at the business's discretion, one of the following options will be provided: product repair, replacement, or monetary credit - in accordance with the law.",
+      "limitation": "The warranty applies to the product only and does not include indirect or consequential damages of any kind.",
+      "conditions": "Exercise of the warranty is conditional on presenting proof of purchase and reasonable use of the product.",
+      "contactTitle": "For Warranty Contact",
+      "contactPhone": "Phone: 052-273-8783"
     }
   }
 }

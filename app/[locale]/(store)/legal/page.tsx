@@ -1,6 +1,6 @@
 import type { Locale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { Shield, Lock, Cookie, Eye } from 'lucide-react';
+import { Info, Shield, Lock, Truck, RefreshCw, BadgeCheck, Cookie, Eye } from 'lucide-react';
 
 interface LegalPageProps {
   params: Promise<{
@@ -14,56 +14,128 @@ export default async function LegalPage({ params }: LegalPageProps) {
 
   const sections = [
     {
+      id: 'about',
+      title: dict.about.title,
+      icon: Info,
+      content: [
+        {
+          heading: '',
+          text: dict.about.content
+        }
+      ]
+    },
+    {
       id: 'terms',
-      title: dict.legalPage.terms.title,
+      title: dict.terms.title,
       icon: Shield,
       content: [
         {
-          heading: dict.legalPage.terms.acceptanceHeading,
-          text: dict.legalPage.terms.acceptanceText
+          heading: dict.terms.usageTitle,
+          text: `${dict.terms.age} ${dict.terms.ageDeclaration} ${dict.terms.cancellation}`
         },
         {
-          heading: dict.legalPage.terms.productInfoHeading,
-          text: dict.legalPage.terms.productInfoText
+          heading: dict.terms.pricingTitle,
+          text: `${dict.terms.pricing} ${dict.terms.payment}`
         },
         {
-          heading: dict.legalPage.terms.pricingHeading,
-          text: dict.legalPage.terms.pricingText
+          heading: dict.terms.warrantyTitle,
+          text: `${dict.terms.images} ${dict.terms.differences} ${dict.terms.warrantyScope}`
         },
         {
-          heading: dict.legalPage.terms.cancellationHeading,
-          text: dict.legalPage.terms.cancellationText
-        },
-        {
-          heading: dict.legalPage.terms.jurisdictionHeading,
-          text: dict.legalPage.terms.jurisdictionText
+          heading: dict.terms.jurisdictionTitle,
+          text: `${dict.terms.law} ${dict.terms.jurisdiction}`
         }
       ]
     },
     {
       id: 'privacy',
-      title: dict.legalPage.privacy.title,
+      title: dict.privacy.title,
       icon: Lock,
       content: [
         {
-          heading: dict.legalPage.privacy.infoCollectHeading,
-          text: dict.legalPage.privacy.infoCollectText
+          heading: dict.privacy.dataCollected,
+          text: dict.privacy.dataCollectedContent
         },
         {
-          heading: dict.legalPage.privacy.howUseHeading,
-          text: dict.legalPage.privacy.howUseText
+          heading: dict.privacy.paymentSecurity,
+          text: dict.privacy.paymentSecurityContent
         },
         {
-          heading: dict.legalPage.privacy.sharingHeading,
-          text: dict.legalPage.privacy.sharingText
+          heading: dict.privacy.purpose,
+          text: dict.privacy.purposeContent
         },
         {
-          heading: dict.legalPage.privacy.securityHeading,
-          text: dict.legalPage.privacy.securityText
+          heading: dict.privacy.thirdParties,
+          text: dict.privacy.thirdPartiesContent
         },
         {
-          heading: dict.legalPage.privacy.rightsHeading,
-          text: dict.legalPage.privacy.rightsText
+          heading: dict.privacy.consent,
+          text: dict.privacy.consentContent
+        }
+      ]
+    },
+    {
+      id: 'shipping',
+      title: dict.shipping.title,
+      icon: Truck,
+      content: [
+        {
+          heading: '',
+          text: `${dict.shipping.israelOnly} ${dict.shipping.deliveryTime} ${dict.shipping.businessDays} ${dict.shipping.deliveryNote} ${dict.shipping.delays} ${dict.shipping.pickup} ${dict.shipping.cost}`
+        }
+      ]
+    },
+    {
+      id: 'returns',
+      title: dict.returns.title,
+      icon: RefreshCw,
+      content: [
+        {
+          heading: '',
+          text: dict.returns.consumerLaw
+        },
+        {
+          heading: dict.returns.cancellationTitle,
+          text: `${dict.returns.cancellationRight} ${dict.returns.howToCancel}`
+        },
+        {
+          heading: dict.returns.refundTitle,
+          text: `${dict.returns.refund} ${dict.returns.refundCondition}`
+        }
+      ]
+    },
+    {
+      id: 'warranty',
+      title: dict.legalPage.warranty.title,
+      icon: BadgeCheck,
+      content: [
+        {
+          heading: '',
+          text: dict.legalPage.warranty.intro
+        },
+        {
+          heading: 'Warranty Scope',
+          text: dict.legalPage.warranty.scope
+        },
+        {
+          heading: 'Coverage',
+          text: dict.legalPage.warranty.coverage
+        },
+        {
+          heading: 'Exclusions',
+          text: dict.legalPage.warranty.exclusions
+        },
+        {
+          heading: 'Defective Products',
+          text: dict.legalPage.warranty.defectiveProduct
+        },
+        {
+          heading: 'Remedies',
+          text: dict.legalPage.warranty.remedies
+        },
+        {
+          heading: dict.legalPage.warranty.contactTitle,
+          text: dict.legalPage.warranty.contactPhone
         }
       ]
     },
@@ -139,6 +211,26 @@ export default async function LegalPage({ params }: LegalPageProps) {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
+        {/* Quick Navigation */}
+        <div className="mb-16 p-8 bg-gradient-to-br from-navy-50 to-gold-50 rounded-2xl border-2 border-gold-200">
+          <h3 className="text-2xl font-bold text-navy-900 mb-6">{dict.legalPage.quickNavigation}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {sections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="flex items-center gap-3 p-4 bg-white rounded-lg hover:bg-gold-50 transition-colors duration-300 border border-gray-200 hover:border-gold-400 group"
+                >
+                  <Icon className="h-5 w-5 text-gold-600 group-hover:scale-110 transition-transform" />
+                  <span className="font-semibold text-navy-900">{section.title}</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="space-y-16">
           {sections.map((section, sectionIndex) => {
             const Icon = section.icon;
@@ -170,26 +262,6 @@ export default async function LegalPage({ params }: LegalPageProps) {
               </section>
             );
           })}
-        </div>
-
-        {/* Quick Navigation */}
-        <div className="mt-16 p-8 bg-gradient-to-br from-navy-50 to-gold-50 rounded-2xl border-2 border-gold-200">
-          <h3 className="text-2xl font-bold text-navy-900 mb-6">{dict.legalPage.quickNavigation}</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {sections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="flex items-center gap-3 p-4 bg-white rounded-lg hover:bg-gold-50 transition-colors duration-300 border border-gray-200 hover:border-gold-400 group"
-                >
-                  <Icon className="h-5 w-5 text-gold-600 group-hover:scale-110 transition-transform" />
-                  <span className="font-semibold text-navy-900">{section.title}</span>
-                </a>
-              );
-            })}
-          </div>
         </div>
 
         {/* Last Updated */}
