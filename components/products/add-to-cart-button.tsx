@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/components/cart/cart-provider';
-import { ShoppingCart, Check, Plus, Minus, Zap, ChevronDown } from 'lucide-react';
+import { ShoppingCart, Check, Plus, Minus, Zap } from 'lucide-react';
 import { formatPrice } from '@/lib/shopify';
 import type { ShopifyProduct, ShopifyVariant } from '@/lib/shopify/types';
 import type { Locale } from '@/lib/i18n/config';
@@ -24,7 +24,6 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
   const [added, setAdded] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(defaultVariant);
   const [quantity, setQuantity] = useState(1);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleAddToCart = async () => {
     await addToCart(selectedVariant.id, quantity);
@@ -94,60 +93,36 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
         </div>
       </div>
 
-      {/* Variant Selector and Quantity Selector Side by Side */}
-      <div className={`grid gap-4 ${product.variants.edges.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
-        {product.variants.edges.length > 1 && (
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-            <label className="block text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wide">
-              {dict.product.selectVariant || 'Select Option'}
-            </label>
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full h-14 px-4 pr-10 border-2 border-gray-300 rounded-xl font-medium text-navy-900 bg-white hover:border-gold-500 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 transition-all text-left flex items-center justify-between"
-              >
-                <span>{selectedVariant.title}</span>
-                <ChevronDown className={`h-5 w-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {isDropdownOpen && (
-                <>
-                  <div 
-                    className="fixed inset-0 z-10" 
-                    onClick={() => setIsDropdownOpen(false)}
-                  />
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-gray-300 rounded-xl shadow-xl z-20 overflow-hidden">
-                    {product.variants.edges.map(({ node: variant }) => (
-                      <button
-                        key={variant.id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedVariant(variant);
-                          onVariantChange?.(variant.id);
-                          setIsDropdownOpen(false);
-                        }}
-                        className={`w-full px-4 py-3 text-left hover:bg-gold-50 transition-colors ${
-                          selectedVariant.id === variant.id 
-                            ? 'bg-gold-100 text-navy-900 font-semibold' 
-                            : 'text-gray-700'
-                        }`}
-                      >
-                        {selectedVariant.id === variant.id && (
-                          <Check className="inline h-4 w-4 mr-2 text-gold-600" />
-                        )}
-                        {variant.title}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Quantity Selector */}
+      {/* Variant Selector */}
+      {product.variants.edges.length > 1 && (
         <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <label className="block text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wide">
+            {dict.product.selectVariant || 'Select Option'}
+          </label>
+          <div className="flex flex-wrap md:flex-nowrap gap-2 overflow-x-auto">
+            {product.variants.edges.map(({ node: variant }) => (
+              <button
+                key={variant.id}
+                type="button"
+                onClick={() => {
+                  setSelectedVariant(variant);
+                  onVariantChange?.(variant.id);
+                }}
+                className={`px-4 py-3 rounded-xl font-medium transition-all border-2 flex-shrink-0 ${
+                  selectedVariant.id === variant.id 
+                    ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-white border-gold-600 shadow-md' 
+                    : 'bg-white text-navy-900 border-gray-300 hover:border-gold-500 hover:bg-gold-50'
+                }`}
+              >
+                {variant.title}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Quantity Selector */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <label className="block text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wide">
             {dict.product.quantity || 'Quantity'}
           </label>
@@ -186,7 +161,6 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
             </Button>
           </div>
         </div>
-      </div>
 
       <div className="flex flex-col md:flex-row gap-3">
         <Button

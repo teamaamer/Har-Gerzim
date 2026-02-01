@@ -34,7 +34,7 @@ export function Footer({ locale, dict, collections }: FooterProps) {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-gold-400 flex-shrink-0" />
-                <a href="tel:0522738783" className="hover:text-gold-400 transition-colors">052-2738783</a>
+                <a href="tel:0522824170" className="hover:text-gold-400 transition-colors">052-2824170</a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-gold-400 flex-shrink-0" />
@@ -51,7 +51,7 @@ export function Footer({ locale, dict, collections }: FooterProps) {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-gold-400 flex-shrink-0" />
-                  <a href="tel:0522738783" className="hover:text-gold-400 transition-colors">052-2738783</a>
+                  <a href="tel:0522824170" className="hover:text-gold-400 transition-colors">052-2824170</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-gold-400 flex-shrink-0" />
@@ -60,7 +60,7 @@ export function Footer({ locale, dict, collections }: FooterProps) {
               </div>
               <div className="flex gap-3">
                 <a 
-                  href="https://wa.me/972522738783" 
+                  href="https://wa.me/972522824170" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-white/10 hover:bg-green-600 flex items-center justify-center transition-all duration-300 group"
@@ -91,7 +91,7 @@ export function Footer({ locale, dict, collections }: FooterProps) {
           {/* Mobile: Social buttons column - takes 1 column */}
           <div className="lg:hidden flex flex-col gap-3 items-center justify-center">
             <a 
-              href="https://wa.me/972522738783" 
+              href="https://wa.me/972522824170" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 rounded-lg bg-white/10 hover:bg-green-600 flex items-center justify-center transition-all duration-300"
