@@ -9,6 +9,7 @@ import { AgeGateProvider } from '@/components/age-gate/age-gate-provider';
 import { PageTransition } from '@/components/page-transition';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { FloatingWhatsApp } from '@/components/floating-whatsapp';
 import '../globals.css';
 
 const inter = Inter({
@@ -84,6 +85,7 @@ export default async function LocaleLayout({
               </PageTransition>
               <Footer locale={localeTyped} dict={dict} collections={collections} />
               <CookieConsentBanner dict={dict} />
+              <FloatingWhatsApp />
             </CartProvider>
           </CustomerProvider>
         </AgeGateProvider>
