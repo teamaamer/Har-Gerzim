@@ -99,7 +99,7 @@ export function AddToCartButton({ product, defaultVariant, locale, dict, onVaria
           <label className="block text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wide">
             {dict.product.selectVariant || 'Select Option'}
           </label>
-          <div className="flex flex-wrap md:flex-nowrap gap-2 overflow-x-auto">
+          <div className="flex gap-2 overflow-x-auto">
             {product.variants.edges.map(({ node: variant }) => (
               <button
                 key={variant.id}
