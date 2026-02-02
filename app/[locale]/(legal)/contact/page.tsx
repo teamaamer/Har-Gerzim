@@ -25,8 +25,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               <Phone className="h-5 w-5 text-primary mt-1" />
               <div>
                 <p className="font-medium">{dict.common.phone}</p>
-                <a href="tel:0522738783" className="text-primary hover:underline">
-                  052-2738783
+                <a href="tel:0522824170" className="text-primary hover:underline">
+                  052-2824170
                 </a>
               </div>
             </div>
@@ -41,13 +41,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
             <div className="pt-4 space-y-3">
               <Button asChild className="w-full" size="lg">
-                <a href="tel:0522738783">
+                <a href="tel:0522824170">
                   <Phone className="mr-2 h-5 w-5" />
                   {dict.contact.call}
                 </a>
               </Button>
               <Button asChild variant="outline" className="w-full" size="lg">
-                <a href="https://wa.me/972522738783" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/972522824170" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" />
                   {dict.contact.whatsapp}
                 </a>

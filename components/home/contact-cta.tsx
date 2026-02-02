@@ -49,7 +49,7 @@ export function ContactCta({ locale, dict }: ContactCtaProps) {
                 <div className="grid grid-cols-2 gap-4">
                   {/* Call Card */}
                   <a 
-                    href="tel:0522738783" 
+                    href="tel:0522824170" 
                     className="bg-navy-900 hover:bg-navy-800 text-white rounded-xl p-6 flex flex-col items-center justify-center gap-3 transition-all hover:scale-[1.02] shadow-lg"
                   >
                     <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
@@ -57,13 +57,13 @@ export function ContactCta({ locale, dict }: ContactCtaProps) {
                     </div>
                     <div className="text-center">
                       <div className="font-bold text-lg">{dict.home.contactCta.call}</div>
-                      <div className="text-sm text-white/90 mt-1">052-273-8783</div>
+                      <div className="text-sm text-white/90 mt-1">052-282-4170</div>
                     </div>
                   </a>
                   
                   {/* WhatsApp Card */}
                   <a 
-                    href="https://wa.me/972522738783" 
+                    href="https://wa.me/972522824170" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-green-600 hover:bg-green-700 text-white rounded-xl p-6 flex flex-col items-center justify-center gap-3 transition-all hover:scale-[1.02] shadow-lg"
