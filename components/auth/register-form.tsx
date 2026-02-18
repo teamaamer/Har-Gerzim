@@ -11,7 +11,7 @@ interface RegisterFormProps {
   dict: any;
 }
 
-const SHOPIFY_STORE_URL = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'loza-har-gerzim.myshopify.com';
+const SHOPIFY_STORE_URL = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'mount-gerizim-2.myshopify.com';
 
 export function RegisterForm({ locale, dict }: RegisterFormProps) {
   const handleRegister = () => {
