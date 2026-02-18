@@ -20,7 +20,7 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-4 gap-2 sm:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         {displayProducts.map((product) => (
           <Link
             key={product.id}

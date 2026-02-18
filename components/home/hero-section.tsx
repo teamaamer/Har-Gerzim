@@ -35,14 +35,14 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
       <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       
       <div className="w-full px-4 md:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start lg:items-center">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex justify-center">
             {/* Content Side */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-col gap-2 lg:space-y-2 lg:block"
+              className="flex flex-col gap-2 lg:space-y-2 lg:block w-full"
             >
               {/* Brand Badge */}
               <motion.div
@@ -72,86 +72,26 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 </motion.h1>
               </div>
 
-              {/* Subtitle - Above Image on Mobile */}
+              {/* Best Sellers Carousel - All Screens */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="lg:hidden order-3"
+                className="order-3"
               >
-                <p className="text-base md:text-lg text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-                  {dict.home.hero.subtitle}
-                </p>
+                <HeroBestSellersCarousel locale={locale} dict={dict} products={products} />
               </motion.div>
 
-              {/* Mobile: Row 1 - Hero Image */}
-              <motion.div 
+              {/* Subtitle - All Screens */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="lg:hidden order-4"
+                className="order-4"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40">
-                  <div 
-                    className="relative p-2 flex items-center justify-center"
-                    style={{
-                      background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
-                    }}
-                  >
-                    <div 
-                      className="absolute inset-0 opacity-10 mix-blend-overlay"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                        backgroundSize: '150px 150px'
-                      }}
-                    />
-                    <div className="relative z-10 w-full">
-                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                        <Image
-                          src="/hero-image.png"
-                          alt="Loza Mount Gerizim Products"
-                          fill
-                          sizes="(max-width: 768px) 100vw, 250px"
-                          className="object-contain drop-shadow-2xl"
-                          priority
-                          quality={90}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Mobile: Row 2 - Carousel Full Width */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="lg:hidden order-5"
-              >
-                <HeroBestSellersCarousel locale={locale} dict={dict} products={products} />
-              </motion.div>
-
-              {/* Subtitle - Desktop Only */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="hidden lg:block"
-              >
-                <p className="text-sm md:text-base text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                <p className="text-base md:text-lg lg:text-base text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-lg lg:rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                   {dict.home.hero.subtitle}
                 </p>
-              </motion.div>
-
-              {/* Best Sellers Carousel - Desktop Only */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-                className="hidden lg:block"
-              >
-                <HeroBestSellersCarousel locale={locale} dict={dict} products={products} />
               </motion.div>
 
               {/* CTAs */}
@@ -229,47 +169,6 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
               </motion.div>
             </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative mt-8 lg:mt-0 hidden lg:block"
-          >
-            {/* Gold Card with Radial Gradient */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-amber-700/40">
-              {/* Smooth Radial Gold Gradient Background */}
-              <div 
-                className="relative p-3 sm:p-4 md:p-6"
-                style={{
-                  background: 'radial-gradient(ellipse at center top, #f4d4a0 0%, #e8b76b 25%, #d4a054 50%, #c08a3d 75%, #a67233 100%)',
-                }}
-              >
-                {/* Subtle Texture Overlay */}
-                <div 
-                  className="absolute inset-0 opacity-10 mix-blend-overlay"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                    backgroundSize: '150px 150px'
-                  }}
-                />
-                
-                {/* Content Container */}
-                <div className="relative z-10">
-                  {/* Hero Image Container */}
-                  <div className="relative w-full aspect-[3/4] max-w-sm mx-auto overflow-hidden rounded-2xl">
-                    <Image
-                      src="/hero-image.png"
-                      alt="Loza Mount Gerizim Products"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 400px"
-                      className="object-contain drop-shadow-2xl"
-                      priority
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
           </div>
         </div>
       </div>
