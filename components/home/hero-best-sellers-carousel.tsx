@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -23,11 +23,10 @@ const categories = [
 ];
 
 export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSellersCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [productIndex, setProductIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   if (!products || products.length === 0) {
     return null;
@@ -35,61 +34,28 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
 
   const displayProducts = products.slice(0, 4);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % categories.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + categories.length) % categories.length);
-  };
-
-  const nextProduct = () => {
-    setProductIndex((prev) => (prev + 1) % displayProducts.length);
-  };
-
-  const prevProduct = () => {
-    setProductIndex((prev) => (prev - 1 + displayProducts.length) % displayProducts.length);
-  };
-
-  const getVisibleCategories = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
-      visible.push(categories[(currentIndex + i) % categories.length]);
-    }
-    return visible;
-  };
-
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
     e.preventDefault();
     setIsDragging(true);
-    setStartX(e.pageX);
-    setDragOffset(0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const currentX = e.pageX;
-    setDragOffset(currentX - startX);
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    
-    // Threshold for swipe detection (50px)
-    if (dragOffset > 50) {
-      prevSlide();
-    } else if (dragOffset < -50) {
-      nextSlide();
-    }
-    setDragOffset(0);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
   };
 
   const handleMouseLeave = () => {
-    if (isDragging) {
-      handleMouseUp();
-    }
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
@@ -104,78 +70,43 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
           
           <div className="relative">
             <div 
-              className="overflow-hidden cursor-grab active:cursor-grabbing select-none"
+              ref={scrollRef}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseLeave}
+              className="flex gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 cursor-grab active:cursor-grabbing select-none"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              <div className="flex items-stretch justify-center gap-2">
-                {/* Previous card (peek) */}
-                <div className="flex-shrink-0 -ml-20 opacity-40 scale-90 transition-all duration-300 pointer-events-none">
-                  <div className="w-24 h-full flex items-center">
-                    <div className="relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm w-full">
-                      <div className="aspect-square relative bg-white/80 rounded-lg overflow-hidden shadow-md w-full">
-                        <Image
-                          src={categories[(currentIndex - 1 + categories.length) % categories.length].image}
-                          alt={categories[(currentIndex - 1 + categories.length) % categories.length].name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+              {categories.map((category) => (
+                <Link
+                  key={category.handle}
+                  href={`/${locale}/collections/${category.handle}`}
+                  className="group relative flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border-2 border-white/20 hover:border-gold-400/60 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-gold-500/30 active:scale-95 flex-shrink-0 w-[30%] snap-center"
+                >
+                  <AutoGlowingEffect 
+                    spread={35}
+                    borderWidth={2}
+                    blur={0}
+                    speed={3}
+                  />
+                  
+                  <div className="aspect-square relative bg-white rounded-xl overflow-hidden mb-2 shadow-lg w-full ring-2 ring-white/10 group-hover:ring-gold-400/30 transition-all duration-300">
+                    <Image
+                      src={category.image}
+                      alt={category.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
-                </div>
-                
-                {/* Main visible cards */}
-                <div className="flex-1 grid grid-cols-3 gap-2 relative z-10">
-                  {getVisibleCategories().map((category, idx) => (
-                    <Link
-                      key={`${category.handle}-${idx}`}
-                      href={`/${locale}/collections/${category.handle}`}
-                      className="group relative flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border-2 border-white/20 hover:border-gold-400/60 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-gold-500/30 active:scale-95"
-                    >
-                      <AutoGlowingEffect 
-                        spread={35}
-                        borderWidth={2}
-                        blur={0}
-                        speed={3}
-                      />
-                      
-                      <div className="aspect-square relative bg-white rounded-xl overflow-hidden mb-2 shadow-lg w-full ring-2 ring-white/10 group-hover:ring-gold-400/30 transition-all duration-300">
-                        <Image
-                          src={category.image}
-                          alt={category.name}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      </div>
-                      
-                      <div className="relative flex flex-col items-center w-full">
-                        <h3 className="text-xs font-bold text-white text-center group-hover:text-gold-300 transition-colors drop-shadow-lg">
-                          {category.name}
-                        </h3>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-                
-                {/* Next card (peek) */}
-                <div className="flex-shrink-0 -mr-20 opacity-40 scale-90 transition-all duration-300 pointer-events-none">
-                  <div className="w-24 h-full flex items-center">
-                    <div className="relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm w-full">
-                      <div className="aspect-square relative bg-white/80 rounded-lg overflow-hidden shadow-md w-full">
-                        <Image
-                          src={categories[(currentIndex + 3) % categories.length].image}
-                          alt={categories[(currentIndex + 3) % categories.length].name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+                  
+                  <div className="relative flex flex-col items-center w-full">
+                    <h3 className="text-xs font-bold text-white text-center group-hover:text-gold-300 transition-colors drop-shadow-lg">
+                      {category.name}
+                    </h3>
                   </div>
-                </div>
-              </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
