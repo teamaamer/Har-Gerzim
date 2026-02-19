@@ -17,7 +17,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
   return (
-    <section className="relative min-h-screen lg:h-auto lg:min-h-0 flex items-start justify-center bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 text-white overflow-hidden pt-4 pb-2 lg:py-12 lg:items-center">
+    <section className="relative min-h-screen lg:h-auto lg:min-h-0 flex items-start justify-center bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 text-white overflow-hidden py-2 lg:py-12 lg:items-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -42,26 +42,26 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-col gap-2 lg:space-y-2 lg:block w-full"
+              className="flex flex-col gap-1 lg:space-y-2 lg:block w-full"
             >
               {/* Brand Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-gold-500/20 to-gold-600/10 border-2 border-gold-400/40 backdrop-blur-md shadow-lg shadow-gold-500/20 order-1"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-gold-500/20 to-gold-600/10 border-2 border-gold-400/40 backdrop-blur-md shadow-lg shadow-gold-500/20 order-1"
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse shadow-lg shadow-gold-400/50" />
-                <span className="text-gold-300 text-sm font-bold tracking-wide">{dict.home.hero.brandMark}</span>
+                <div className="w-2 h-2 rounded-full bg-gold-400 animate-pulse shadow-lg shadow-gold-400/50" />
+                <span className="text-gold-300 text-xs font-bold tracking-wide">{dict.home.hero.brandMark}</span>
               </motion.div>
 
               {/* Heading */}
-              <div className="space-y-0.5 lg:space-y-1 order-2">
+              <div className="space-y-0 lg:space-y-1 order-2">
                 <motion.h1 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl font-extrabold tracking-tight leading-[1.1]"
+                  className="text-3xl sm:text-5xl md:text-4xl lg:text-4xl font-extrabold tracking-tight leading-[1.1]"
                   style={{
                     textShadow: '0 2px 20px rgba(251, 191, 36, 0.3), 0 0 40px rgba(251, 191, 36, 0.2)'
                   }}
@@ -82,12 +82,12 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 <HeroBestSellersCarousel locale={locale} dict={dict} products={products} />
               </motion.div>
 
-              {/* Subtitle - All Screens */}
+              {/* Subtitle - Desktop Only */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="order-4"
+                className="order-4 hidden lg:block"
               >
                 <p className="text-base md:text-lg lg:text-base text-gold-100 font-medium leading-relaxed px-3 py-2 rounded-lg lg:rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                   {dict.home.hero.subtitle}
@@ -108,8 +108,8 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 >
                   <Button 
                     asChild 
-                    size="lg" 
-                    className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-bold text-sm px-4 py-2 group shadow-2xl shadow-gold-500/50 hover:shadow-gold-500/70 transition-all duration-300 rounded-xl"
+                    size="sm" 
+                    className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-navy-900 font-bold text-xs px-3 py-1.5 group shadow-2xl shadow-gold-500/50 hover:shadow-gold-500/70 transition-all duration-300 rounded-xl"
                   >
                     <Link href={`/${locale}/collections/all`}>
                       {dict.home.hero.cta.primary}

@@ -1,8 +1,9 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Locale } from '@/lib/i18n/config';
 import type { ShopifyCollection } from '@/lib/shopify/types';
 import { ProductCard } from '@/components/products/product-card';
@@ -12,6 +13,141 @@ interface CategoryProductsProps {
   locale: Locale;
   dict: any;
   collections: ShopifyCollection[];
+}
+
+function CategoryCarousel({ collection, locale, dict, collectionIndex }: { collection: ShopifyCollection; locale: Locale; dict: any; collectionIndex: number }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const products = collection.products.edges.map(edge => edge.node);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth * 0.8;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+      setTimeout(checkScroll, 300);
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: collectionIndex * 0.1 }}
+      className="space-y-4"
+    >
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-navy-900 mb-2">
+            {collection.title}
+          </h3>
+          {collection.description && (
+            <p className="text-sm md:text-base text-muted-foreground">
+              {collection.description}
+            </p>
+          )}
+        </div>
+        <Button
+          asChild
+          variant="outline"
+          size="sm"
+          className="border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white flex-shrink-0 text-xs md:text-sm"
+        >
+          <Link href={`/${locale}/collections/${collection.handle}`}>
+            {dict.home.collections?.viewAll || 'View All'}
+            <ArrowRight className={`h-3 w-3 md:h-4 md:w-4 ${locale === 'he' || locale === 'ar' ? 'mr-2' : 'ml-2'}`} />
+          </Link>
+        </Button>
+      </div>
+
+      {/* Carousel */}
+      <div className="relative">
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll('left')}
+            className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-navy-900/90 hover:bg-navy-900 text-white shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+        )}
+        
+        {canScrollRight && (
+          <button
+            onClick={() => scroll('right')}
+            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-navy-900/90 hover:bg-navy-900 text-white shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
+            aria-label="Next"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        )}
+
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 cursor-grab active:cursor-grabbing select-none"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {products.map((product, productIndex) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: productIndex * 0.05 }}
+              className="flex-shrink-0 w-[85%] md:w-[45%] lg:w-[23%] snap-center"
+            >
+              <ProductCard product={product} locale={locale} dict={dict} />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export function CategoryProducts({ locale, dict, collections }: CategoryProductsProps) {
@@ -134,59 +270,15 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
               </motion.div>
 
               {/* Remaining multi-product categories (more than 2 products) */}
-              {multiProductCollections.map((collection, collectionIndex) => {
-                const products = collection.products.edges.map(edge => edge.node);
-                
-                return (
-                  <motion.div
-                    key={collection.handle}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: (collectionIndex + 1) * 0.1 }}
-                    className="space-y-6"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-navy-900 mb-2">
-                          {collection.title}
-                        </h3>
-                        {collection.description && (
-                          <p className="text-sm md:text-base text-muted-foreground">
-                            {collection.description}
-                          </p>
-                        )}
-                      </div>
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white flex-shrink-0 text-xs md:text-sm"
-                      >
-                        <Link href={`/${locale}/collections/${collection.handle}`}>
-                          {dict.home.collections?.viewAll || 'View All'}
-                          <ArrowRight className={`h-3 w-3 md:h-4 md:w-4 ${locale === 'he' || locale === 'ar' ? 'mr-2' : 'ml-2'}`} />
-                        </Link>
-                      </Button>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                      {products.map((product, productIndex) => (
-                        <motion.div
-                          key={product.id}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: productIndex * 0.05 }}
-                          className="h-full"
-                        >
-                          <ProductCard product={product} locale={locale} dict={dict} />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
+              {multiProductCollections.map((collection, collectionIndex) => (
+                <CategoryCarousel
+                  key={collection.handle}
+                  collection={collection}
+                  locale={locale}
+                  dict={dict}
+                  collectionIndex={collectionIndex + 1}
+                />
+              ))}
             </>
           ) : (
             <>
@@ -238,59 +330,15 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
                 </motion.div>
               )}
 
-              {multiProductCollections.map((collection, collectionIndex) => {
-                const products = collection.products.edges.map(edge => edge.node);
-                
-                return (
-                  <motion.div
-                    key={collection.handle}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: collectionIndex * 0.1 }}
-                    className="space-y-6"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-navy-900 mb-2">
-                          {collection.title}
-                        </h3>
-                        {collection.description && (
-                          <p className="text-sm md:text-base text-muted-foreground">
-                            {collection.description}
-                          </p>
-                        )}
-                      </div>
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white flex-shrink-0 text-xs md:text-sm"
-                      >
-                        <Link href={`/${locale}/collections/${collection.handle}`}>
-                          {dict.home.collections?.viewAll || 'View All'}
-                          <ArrowRight className={`h-3 w-3 md:h-4 md:w-4 ${locale === 'he' || locale === 'ar' ? 'mr-2' : 'ml-2'}`} />
-                        </Link>
-                      </Button>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                      {products.map((product, productIndex) => (
-                        <motion.div
-                          key={product.id}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: productIndex * 0.05 }}
-                          className="h-full"
-                        >
-                          <ProductCard product={product} locale={locale} dict={dict} />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
+              {multiProductCollections.map((collection, collectionIndex) => (
+                <CategoryCarousel
+                  key={collection.handle}
+                  collection={collection}
+                  locale={locale}
+                  dict={dict}
+                  collectionIndex={collectionIndex}
+                />
+              ))}
             </>
           )}
         </div>
