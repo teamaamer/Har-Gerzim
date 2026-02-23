@@ -23,10 +23,14 @@ const categories = [
 ];
 
 export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSellersCarouselProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const productScrollRef = useRef<HTMLDivElement>(null);
+  const [isDraggingCategory, setIsDraggingCategory] = useState(false);
+  const [isDraggingProduct, setIsDraggingProduct] = useState(false);
+  const [categoryStartX, setCategoryStartX] = useState(0);
+  const [productStartX, setProductStartX] = useState(0);
+  const [categoryScrollLeft, setCategoryScrollLeft] = useState(0);
+  const [productScrollLeft, setProductScrollLeft] = useState(0);
 
   if (!products || products.length === 0) {
     return null;
@@ -34,28 +38,52 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
 
   const displayProducts = products.slice(0, 4);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
+  const handleCategoryMouseDown = (e: React.MouseEvent) => {
+    if (!categoryScrollRef.current) return;
     e.preventDefault();
-    setIsDragging(true);
-    setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
+    setIsDraggingCategory(true);
+    setCategoryStartX(e.pageX - categoryScrollRef.current.offsetLeft);
+    setCategoryScrollLeft(categoryScrollRef.current.scrollLeft);
   };
 
-  const handleMouseLeave = () => {
-    setIsDragging(false);
+  const handleCategoryMouseLeave = () => {
+    setIsDraggingCategory(false);
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleCategoryMouseUp = () => {
+    setIsDraggingCategory(false);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return;
+  const handleCategoryMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingCategory || !categoryScrollRef.current) return;
     e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    scrollRef.current.scrollLeft = scrollLeft - walk;
+    const x = e.pageX - categoryScrollRef.current.offsetLeft;
+    const walk = (x - categoryStartX) * 2;
+    categoryScrollRef.current.scrollLeft = categoryScrollLeft - walk;
+  };
+
+  const handleProductMouseDown = (e: React.MouseEvent) => {
+    if (!productScrollRef.current) return;
+    e.preventDefault();
+    setIsDraggingProduct(true);
+    setProductStartX(e.pageX - productScrollRef.current.offsetLeft);
+    setProductScrollLeft(productScrollRef.current.scrollLeft);
+  };
+
+  const handleProductMouseLeave = () => {
+    setIsDraggingProduct(false);
+  };
+
+  const handleProductMouseUp = () => {
+    setIsDraggingProduct(false);
+  };
+
+  const handleProductMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingProduct || !productScrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - productScrollRef.current.offsetLeft;
+    const walk = (x - productStartX) * 2;
+    productScrollRef.current.scrollLeft = productScrollLeft - walk;
   };
 
   return (
@@ -70,11 +98,11 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
           
           <div className="relative">
             <div 
-              ref={scrollRef}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseLeave}
+              ref={categoryScrollRef}
+              onMouseDown={handleCategoryMouseDown}
+              onMouseMove={handleCategoryMouseMove}
+              onMouseUp={handleCategoryMouseUp}
+              onMouseLeave={handleCategoryMouseLeave}
               className="flex gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 cursor-grab active:cursor-grabbing select-none"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
@@ -111,18 +139,26 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
           </div>
         </div>
 
-        {/* Best Seller Products - 4x4 Grid */}
+        {/* Best Seller Products - Carousel */}
         <div>
           <h2 className="text-base font-bold text-gold-300 text-center mb-2">
             {dict.home.bestSellers?.productsTitle || 'Featured Products'}
           </h2>
           
-          <div className="grid grid-cols-2 gap-2">
+          <div 
+            ref={productScrollRef}
+            onMouseDown={handleProductMouseDown}
+            onMouseMove={handleProductMouseMove}
+            onMouseUp={handleProductMouseUp}
+            onMouseLeave={handleProductMouseLeave}
+            className="flex gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 cursor-grab active:cursor-grabbing select-none"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
             {displayProducts.map((product) => (
               <Link
                 key={product.id}
                 href={`/${locale}/products/${product.handle}`}
-                className="group relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border-2 border-transparent hover:from-white/20 hover:to-white/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gold-500/20 hover:scale-105"
+                className="group relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border-2 border-transparent hover:from-white/20 hover:to-white/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gold-500/20 hover:scale-105 flex-shrink-0 w-[60%] snap-center"
               >
                 <AutoGlowingEffect 
                   spread={30}
