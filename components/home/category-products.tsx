@@ -172,7 +172,13 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
     collection => collection.products.edges.length <= 2
   );
   
-  // Separate Tahini from other collections (check both handle and title)
+  // Separate Olive Oil and Tahini to show first
+  const oliveOilCollection = allMultiProductCollections.filter(
+    collection => 
+      collection.handle.toLowerCase().includes('olive-oil') || 
+      collection.title.toLowerCase().includes('olive oil')
+  );
+  
   const tahiniCollection = allMultiProductCollections.filter(
     collection => 
       collection.handle.toLowerCase().includes('tahini') || 
@@ -180,14 +186,19 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
   );
   
   const otherMultiProductCollections = allMultiProductCollections.filter(
-    collection => 
-      !collection.handle.toLowerCase().includes('tahini') && 
-      !collection.title.toLowerCase().includes('tahini') &&
-      collection.products.edges.length > 2
+    collection => {
+      const lowerHandle = collection.handle.toLowerCase();
+      const lowerTitle = collection.title.toLowerCase();
+      return !lowerHandle.includes('tahini') && 
+             !lowerTitle.includes('tahini') &&
+             !lowerHandle.includes('olive-oil') && 
+             !lowerTitle.includes('olive oil') &&
+             collection.products.edges.length > 2;
+    }
   );
   
-  // Put Tahini at the end
-  const multiProductCollections = [...otherMultiProductCollections, ...tahiniCollection];
+  // Put Olive Oil and Tahini first, then other collections
+  const multiProductCollections = [...oliveOilCollection, ...tahiniCollection, ...otherMultiProductCollections];
   
   // Determine if we should group small collections together
   // This happens when we have small collections (1-2 products each)
@@ -216,7 +227,18 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
           {/* If we have small collections (1-2 products each), display them together in one row */}
           {shouldGroupSmallCollections ? (
             <>
-              {/* First row: All small collections (1-2 products each) */}
+              {/* First: Olive Oil and Tahini carousels */}
+              {[...oliveOilCollection, ...tahiniCollection].map((collection, collectionIndex) => (
+                <CategoryCarousel
+                  key={collection.handle}
+                  collection={collection}
+                  locale={locale}
+                  dict={dict}
+                  collectionIndex={collectionIndex}
+                />
+              ))}
+
+              {/* Second: All small collections (1-2 products each) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -270,13 +292,13 @@ export function CategoryProducts({ locale, dict, collections }: CategoryProducts
               </motion.div>
 
               {/* Remaining multi-product categories (more than 2 products) */}
-              {multiProductCollections.map((collection, collectionIndex) => (
+              {otherMultiProductCollections.map((collection, collectionIndex) => (
                 <CategoryCarousel
                   key={collection.handle}
                   collection={collection}
                   locale={locale}
                   dict={dict}
-                  collectionIndex={collectionIndex + 1}
+                  collectionIndex={collectionIndex + oliveOilCollection.length + tahiniCollection.length + 1}
                 />
               ))}
             </>

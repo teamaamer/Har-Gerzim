@@ -3,9 +3,12 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ChevronLeft, ChevronRight, ShoppingCart, Zap } from 'lucide-react';
 import type { Locale } from '@/lib/i18n/config';
 import { AutoGlowingEffect } from '@/components/ui/auto-glowing-effect';
+import { useCart } from '@/components/cart/cart-provider';
+import { Button } from '@/components/ui/button';
 
 interface HeroBestSellersCarouselProps {
   locale: Locale;
@@ -31,12 +34,34 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
   const [productStartX, setProductStartX] = useState(0);
   const [categoryScrollLeft, setCategoryScrollLeft] = useState(0);
   const [productScrollLeft, setProductScrollLeft] = useState(0);
+  
+  const { addToCart, isLoading } = useCart();
+  const router = useRouter();
 
   if (!products || products.length === 0) {
     return null;
   }
 
   const displayProducts = products.slice(0, 4);
+
+  const handleAddToCart = async (e: React.MouseEvent, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const product = displayProducts.find(p => p.id === productId);
+    if (product?.variants?.edges?.[0]?.node?.id) {
+      await addToCart(product.variants.edges[0].node.id, 1);
+    }
+  };
+
+  const handleBuyNow = async (e: React.MouseEvent, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const product = displayProducts.find(p => p.id === productId);
+    if (product?.variants?.edges?.[0]?.node?.id) {
+      await addToCart(product.variants.edges[0].node.id, 1);
+      router.push(`/${locale}/cart`);
+    }
+  };
 
   const handleCategoryMouseDown = (e: React.MouseEvent) => {
     if (!categoryScrollRef.current) return;
@@ -155,10 +180,9 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {displayProducts.map((product) => (
-              <Link
+              <div
                 key={product.id}
-                href={`/${locale}/products/${product.handle}`}
-                className="group relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border-2 border-transparent hover:from-white/20 hover:to-white/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gold-500/20 hover:scale-105 flex-shrink-0 w-[60%] snap-center"
+                className="group relative flex flex-col items-center p-2 rounded-xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border-2 border-transparent hover:from-white/20 hover:to-white/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gold-500/20 flex-shrink-0 w-[60%] snap-center"
               >
                 <AutoGlowingEffect 
                   spread={30}
@@ -170,26 +194,51 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
                 <div className="absolute inset-0 rounded-xl border-2 border-gold-400/0 group-hover:border-gold-400 transition-all duration-300 pointer-events-none" />
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold-400/0 to-gold-600/0 group-hover:from-gold-400/10 group-hover:to-gold-600/10 transition-all duration-300 pointer-events-none" />
                 
-                <div className="aspect-square relative bg-white rounded-lg overflow-hidden mb-1.5 shadow-md w-full">
-                  <Image
-                    src={product.images?.edges?.[0]?.node?.url || product.featuredImage?.url || '/logo.png'}
-                    alt={product.images?.edges?.[0]?.node?.altText || product.title}
-                    fill
-                    className="object-contain p-2 group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
+                <Link href={`/${locale}/products/${product.handle}`} className="w-full">
+                  <div className="aspect-square relative bg-white rounded-lg overflow-hidden mb-1.5 shadow-md w-full">
+                    <Image
+                      src={product.images?.edges?.[0]?.node?.url || product.featuredImage?.url || '/logo.png'}
+                      alt={product.images?.edges?.[0]?.node?.altText || product.title}
+                      fill
+                      className="object-contain p-2 group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
                 
-                <div className="relative flex flex-col items-center w-full">
-                  <h3 className="text-[10px] font-bold text-white mb-1 text-center line-clamp-2 group-hover:text-gold-300 transition-colors leading-tight">
-                    {product.title}
-                  </h3>
-                  <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold-500/20 border border-gold-400/30">
+                <div className="relative flex flex-col items-center w-full gap-1.5">
+                  <Link href={`/${locale}/products/${product.handle}`} className="w-full">
+                    <h3 className="text-[10px] font-bold text-white mb-1 text-center line-clamp-2 group-hover:text-gold-300 transition-colors leading-tight">
+                      {product.title}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold-500/20 border border-gold-400/30 mb-1">
                     <span className="text-xs font-bold text-gold-400">
                       {dict.common.currency}{product.priceRange?.minVariantPrice?.amount || '0'}
                     </span>
                   </div>
+                  
+                  <div className="flex gap-1 w-full">
+                    <Button
+                      size="sm"
+                      onClick={(e) => handleBuyNow(e, product.id)}
+                      disabled={isLoading || !product.availableForSale}
+                      className="flex-1 h-7 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-bold text-[9px] px-1 rounded-md"
+                    >
+                      <Zap className="h-3 w-3 mr-0.5" />
+                      {dict.common.buyNow || 'Buy'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={(e) => handleAddToCart(e, product.id)}
+                      disabled={isLoading || !product.availableForSale}
+                      className="flex-1 h-7 bg-navy-900 hover:bg-navy-950 text-white font-semibold text-[9px] px-1 rounded-md"
+                    >
+                      <ShoppingCart className="h-3 w-3 mr-0.5" />
+                      {dict.common.addToCart || 'Add'}
+                    </Button>
+                  </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
