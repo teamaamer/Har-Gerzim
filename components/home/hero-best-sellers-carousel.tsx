@@ -14,18 +14,10 @@ interface HeroBestSellersCarouselProps {
   locale: Locale;
   dict: any;
   products: any[];
+  collections?: any[];
 }
 
-const categories = [
-  { name: 'Zaatar', image: '/categories/Zaatar.png', handle: 'zaatar' },
-  { name: 'Olive Oil', image: '/categories/Olive Oil.png', handle: 'olive-oil' },
-  { name: 'Halawa', image: '/categories/Halawa.png', handle: 'halawa' },
-  { name: 'Tahini', image: '/categories/Tahini.png', handle: 'tahini' },
-  { name: 'Coffee', image: '/categories/Coffee.jpeg', handle: 'coffee' },
-  { name: 'Alcohol', image: '/categories/Alcohol.png', handle: 'alcohol' },
-];
-
-export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSellersCarouselProps) {
+export function HeroBestSellersCarousel({ locale, dict, products, collections = [] }: HeroBestSellersCarouselProps) {
   const categoryScrollRef = useRef<HTMLDivElement>(null);
   const productScrollRef = useRef<HTMLDivElement>(null);
   const [isDraggingCategory, setIsDraggingCategory] = useState(false);
@@ -131,10 +123,10 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
               className="flex gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 cursor-grab active:cursor-grabbing select-none"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              {categories.map((category) => (
+              {collections.map((collection) => (
                 <Link
-                  key={category.handle}
-                  href={`/${locale}/collections/${category.handle}`}
+                  key={collection.handle}
+                  href={`/${locale}/collections/${collection.handle}`}
                   className="group relative flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border-2 border-white/20 hover:border-gold-400/60 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-gold-500/30 active:scale-95 flex-shrink-0 w-[30%] snap-center"
                 >
                   <AutoGlowingEffect 
@@ -146,8 +138,8 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
                   
                   <div className="aspect-square relative bg-white rounded-xl overflow-hidden mb-2 shadow-lg w-full ring-2 ring-white/10 group-hover:ring-gold-400/30 transition-all duration-300">
                     <Image
-                      src={category.image}
-                      alt={category.name}
+                      src={collection.image?.url || '/logo.png'}
+                      alt={collection.image?.altText || collection.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -155,7 +147,7 @@ export function HeroBestSellersCarousel({ locale, dict, products }: HeroBestSell
                   
                   <div className="relative flex flex-col items-center w-full">
                     <h3 className="text-xs font-bold text-white text-center group-hover:text-gold-300 transition-colors drop-shadow-lg">
-                      {category.name}
+                      {collection.title}
                     </h3>
                   </div>
                 </Link>

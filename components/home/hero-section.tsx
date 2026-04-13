@@ -13,9 +13,10 @@ interface HeroSectionProps {
   locale: Locale;
   dict: any;
   products?: any[];
+  collections?: any[];
 }
 
-export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
+export function HeroSection({ locale, dict, products = [], collections = [] }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen lg:h-auto lg:min-h-0 flex items-start justify-center bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 text-white overflow-hidden py-2 lg:py-12 lg:items-center">
       {/* Background Image */}
@@ -79,7 +80,7 @@ export function HeroSection({ locale, dict, products = [] }: HeroSectionProps) {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="order-3"
               >
-                <HeroBestSellersCarousel locale={locale} dict={dict} products={products} />
+                <HeroBestSellersCarousel locale={locale} dict={dict} products={products} collections={collections} />
               </motion.div>
 
               {/* Subtitle - Desktop Only */}
