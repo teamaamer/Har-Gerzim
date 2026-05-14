@@ -15,15 +15,6 @@ interface FeaturedCollectionsProps {
   collections: ShopifyCollection[];
 }
 
-const collectionImages: Record<string, string> = {
-  'tahini': '/categories/Tahini.png',
-  'halawa': '/categories/Halawa.png',
-  'olive-oil': '/categories/Olive Oil.png',
-  'coffee': '/categories/Coffee.jpeg',
-  'zaatar': '/categories/Zaatar.png',
-  'za-atar': '/categories/Zaatar.png',
-};
-
 export function FeaturedCollections({ locale, dict, collections }: FeaturedCollectionsProps) {
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-b from-white to-muted/30 overflow-hidden">
@@ -45,7 +36,7 @@ export function FeaturedCollections({ locale, dict, collections }: FeaturedColle
 
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
           {collections.slice(0, 5).map((collection, index) => {
-            const imageUrl = collection.image?.url || collectionImages[collection.handle] || '/logo.png';
+            const imageUrl = collection.image?.url || '/logo.png';
             
             return (
               <motion.div

@@ -12,7 +12,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = await getDictionary(locale);
   const products = await getProducts(undefined, 8, locale);
-  const collections = await getAllCollections(20, locale);
+  const collections = await getAllCollections(6, locale);
 
   return (
     <div className="flex flex-col">
@@ -57,11 +57,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             {dict.home.collections.title}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { name: dict.home.collections.tahini, handle: 'tahini', image: '/logo.png' },
-              { name: dict.home.collections.halawa, handle: 'halawa', image: '/logo.png' },
-              { name: dict.home.collections.oliveOil, handle: 'olive-oil', image: '/logo.png' },
-            ].map((collection) => (
+            {collections.map((collection) => (
               <Link
                 key={collection.handle}
                 href={`/${locale}/collections/${collection.handle}`}
@@ -69,15 +65,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               >
                 <div className="aspect-square relative bg-gradient-to-br from-navy-50 to-gold-50">
                   <Image
-                    src={collection.image}
-                    alt={collection.name}
+                    src={collection.image?.url || '/logo.png'}
+                    alt={collection.image?.altText || collection.title}
                     fill
                     className="object-contain p-8 group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                    {collection.name}
+                    {collection.title}
                   </h3>
                 </div>
               </Link>
